@@ -3,105 +3,182 @@
     "id": "norman-delucia-life-in-computing", "slug": "norman-delucia-and-a-life-in-computing",
     "title": "Norman DeLucia and a Life in Computing",
     "summary": "From a hobbyist tinkerer to a longtime RICM volunteer, Norman DeLucia's decades of collecting helped shape the museum's holdings and its restoration culture.",
+    "body": [
+      "Like many of RICM's most dedicated volunteers, Norman DeLucia's relationship with computing began with curiosity rather than career ambition — pulling apart a broken calculator as a teenager just to see how the logic worked.",
+      "Over decades of collecting, repairing, and swapping stories with fellow enthusiasts across Rhode Island, Norman became one of the quiet threads connecting the region's computing community to what would eventually become the museum.",
+      "This profile is a representative sample of the Person story template RICM's Story Library will use for volunteer, donor, and community profiles — pairing a portrait, a short biography, and links to the artifacts and restorations that person's work touched."
+    ],
     "storyType": "Community", "era": "2000s", "topics": ["Rhode Island", "Volunteers", "Restorations"],
-    "imageSeed": "delucia", "readTime": 7, "isSample": true
+    "people": ["Norman DeLucia"], "organizations": [],
+    "imageSeed": "delucia", "readTime": 7,
+    "relatedArtifacts": ["dec-pdp-8e-sid"], "relatedStories": ["restoring-a-pdp-8"], "isSample": true
   },
   {
     "id": "john-a-daly-engineer-educator", "slug": "john-a-daly-engineer-and-educator",
     "title": "John A. Daly: Engineer and Educator",
     "summary": "An engineer-turned-educator whose personal collection of early teaching computers helped seed part of RICM's education-technology holdings.",
+    "body": [
+      "John A. Daly spent much of his career teaching electronics and computing fundamentals, and kept much of the hardware he taught with along the way.",
+      "This sample record demonstrates how RICM's Person content type links a biography to the specific objects, programs, and stories connected to that individual — the connective tissue the Story Library is built to surface automatically."
+    ],
     "storyType": "Person", "era": "1990s", "topics": ["Education", "Rhode Island"],
-    "imageSeed": "daly", "readTime": 5, "isSample": true
+    "people": ["John A. Daly"], "organizations": [],
+    "imageSeed": "daly", "readTime": 5,
+    "relatedArtifacts": ["digi-comp-1"], "relatedStories": [], "isSample": true
   },
   {
     "id": "birth-of-the-floppy-disk", "slug": "the-birth-of-the-floppy-disk",
     "title": "The Birth of the Floppy Disk",
     "summary": "How a simple idea — a flexible magnetic disk in a protective jacket — changed how the world moved data.",
+    "body": [
+      "IBM engineers introduced the first floppy disk format, an 8-inch flexible magnetic disk, in the early 1970s as a way to load microcode into mainframe controllers — not, at first, as a product for ordinary users.",
+      "The format shrank fast: 5.25-inch “minifloppies” arrived by the mid-1970s and became the standard software and storage medium for the first wave of home computers, followed by the sturdier 3.5-inch disk in rigid plastic shells that Sony and others popularized through the 1980s.",
+      "By the time 3.5-inch disks became ubiquitous, the floppy had gone from a mainframe engineering trick to the way an entire generation shared software, saved homework, and mailed photographs to family."
+    ],
     "storyType": "Innovation", "era": "1970s", "topics": ["Data Storage", "Innovation"],
-    "imageSeed": "floppy", "readTime": 5, "isSample": false
+    "people": [], "organizations": ["IBM"],
+    "imageSeed": "floppy", "readTime": 5,
+    "relatedArtifacts": ["apple-iic"], "relatedStories": ["how-punch-cards-worked"], "isSample": false
   },
   {
     "id": "how-punch-cards-worked", "slug": "how-punch-cards-worked",
     "title": "How Punch Cards Worked",
     "summary": "Simple holes, powerful ideas — the century-old technology that first put data in the palm of your hand.",
+    "body": [
+      "Punched cards predate the electronic computer by more than a century — Joseph Marie Jacquard used punched cards to control weaving patterns on looms as early as 1804, and Herman Hollerith adapted the idea to tabulate the 1890 U.S. Census.",
+      "Hollerith's tabulating company eventually became part of the company that would be renamed IBM, and the 80-column punch card he helped standardize became the primary way to store data and instructions for computers well into the 1970s.",
+      "Each hole's position represented a piece of data or an instruction; card readers sensed the pattern of holes, mechanically at first and later with light. Programmers routinely carried decks of hundreds of cards to a mainframe's card reader — and dropping one meant painstakingly re-sorting it by hand."
+    ],
     "storyType": "Innovation", "era": "1960s", "topics": ["Data Storage", "IBM"],
-    "imageSeed": "punchcard", "readTime": 6, "isSample": false
+    "people": [], "organizations": ["IBM"],
+    "imageSeed": "punchcard", "readTime": 6,
+    "relatedArtifacts": ["ibm-1401", "digi-comp-1"], "relatedStories": ["birth-of-the-floppy-disk"], "isSample": false
   },
   {
     "id": "inside-digital-equipment-corp", "slug": "inside-digital-equipment-corp",
     "title": "Inside Digital Equipment Corp.",
     "summary": "Building better machines — and a company — that changed the world of computing from a garage-sized mill building in Maynard, Massachusetts.",
+    "body": [
+      "Founded in 1957, Digital Equipment Corporation set out to build computers that people could interact with directly, rather than submitting a stack of cards and waiting hours for a printout.",
+      "The PDP series of minicomputers that followed put real-time, interactive computing within reach of university labs, research facilities, and eventually small businesses — a dramatically different scale from the room-sized mainframes of the era.",
+      "Several of RICM's own large-systems holdings, including its PDP-8 and PDP-9 minicomputers, are part of this same lineage — kept running today through the same hands-on curiosity DEC's engineers built the machines with."
+    ],
     "storyType": "Company", "era": "1970s", "topics": ["DEC", "Innovation"],
-    "imageSeed": "dec-hq", "readTime": 8, "isSample": false
+    "people": [], "organizations": ["DEC"],
+    "imageSeed": "dec-hq", "readTime": 8,
+    "relatedArtifacts": ["dec-pdp-8e-sid", "dec-pdp-9"], "relatedStories": ["restoring-a-pdp-8"], "isSample": false
   },
   {
     "id": "restoring-a-pdp-8", "slug": "restoring-a-pdp-8",
     "title": "Restoring a PDP-8",
     "summary": "Preserving a classic minicomputer for future generations, one volunteer work session at a time.",
+    "body": [
+      "RICM's PDP-8/e — affectionately nicknamed “SID” by the volunteers who restored it — arrived at the museum in non-working condition, missing several key modules.",
+      "Volunteers traced the fault to a failed core-memory driver board, sourced period-correct replacement parts, and brought the machine back to a state where visitors can watch its front-panel lights blink through a running program.",
+      "This restoration log is a representative sample of the Restoration content type, which links dated work entries, photos, and documentation back to the parent Artifact record."
+    ],
     "storyType": "Restoration", "era": "Restoration", "topics": ["Restorations", "DEC"],
-    "imageSeed": "restoration", "readTime": 6, "isSample": true
+    "people": [], "organizations": ["DEC"],
+    "imageSeed": "restoration", "readTime": 6,
+    "relatedArtifacts": ["dec-pdp-8e-sid", "dec-pdp-9"], "relatedStories": ["inside-digital-equipment-corp"], "isSample": true
   },
   {
     "id": "computing-in-rhode-island", "slug": "computing-in-rhode-island",
     "title": "Computing in Rhode Island",
     "summary": "The people, schools, and companies that built a Rhode Island technology hub — and where RICM's collection came from.",
+    "body": [
+      "Rhode Island's compact size belies an outsized role in New England's technology corridor, home to manufacturers, defense contractors, and a steady stream of home-computing enthusiasts through the 1970s and 80s.",
+      "Much of RICM's founding collection came directly from Rhode Island basements, offices, and school surplus sales — machines that might otherwise have been recycled or landfilled."
+    ],
     "storyType": "Community", "era": "1970s", "topics": ["Rhode Island"],
-    "imageSeed": "ri-tech", "readTime": 7, "isSample": true
+    "people": [], "organizations": [],
+    "imageSeed": "ri-tech", "readTime": 7,
+    "relatedArtifacts": [], "relatedStories": ["computing-in-rhode-island"], "isSample": true
   },
   {
     "id": "rise-of-home-computing", "slug": "the-rise-of-home-computing",
     "title": "The Rise of Home Computing",
     "summary": "When computers moved from labs into living rooms, and what changed once they got there.",
+    "body": [
+      "By the late 1970s, a wave of affordable microcomputers — the Apple II, Commodore PET, and TRS-80 chief among them — brought computing out of institutional data centers and into ordinary homes for the first time.",
+      "What people did with that access varied wildly: budgeting and word processing, yes, but also games, music, art, and an enormous, sprawling hobbyist culture of magazines, user groups, and shareware that predated the internet as most people know it."
+    ],
     "storyType": "Innovation", "era": "1980s", "topics": ["Personal Computing"],
-    "imageSeed": "home-computing", "readTime": 6, "isSample": false
+    "people": [], "organizations": ["Apple", "Commodore"],
+    "imageSeed": "home-computing", "readTime": 6,
+    "relatedArtifacts": ["commodore-64", "trs-80", "xerox-alto"], "relatedStories": ["classroom-computer-revolution"], "isSample": false
   },
   {
     "id": "classroom-computer-revolution", "slug": "the-classroom-computer-revolution",
     "title": "The Classroom Computer Revolution",
     "summary": "How schools became one of the first, and largest, markets for personal computers.",
+    "body": [
+      "Apple's education pricing and donation programs in the early 1980s put Apple II-family computers in classrooms across the country, often before those same machines were common at home.",
+      "For a generation of students, a school computer lab — rows of beige machines humming through a lunch period of typing games and BASIC programming exercises — was many people's very first hands-on experience with computing."
+    ],
     "storyType": "Innovation", "era": "1980s", "topics": ["Education", "Apple"],
-    "imageSeed": "classroom", "readTime": 6, "isSample": false
+    "people": [], "organizations": ["Apple"],
+    "imageSeed": "classroom", "readTime": 6,
+    "relatedArtifacts": ["apple-iic", "apple-iie"], "relatedStories": ["apple-and-education"], "isSample": false
   },
   {
     "id": "apple-and-education", "slug": "apple-and-education-a-lasting-connection",
     "title": "Apple and Education: A Lasting Connection",
     "summary": "The minicomputer revolution's quieter twin: the deliberate courtship of American schools.",
+    "body": ["Apple's relationship with American classrooms became a defining part of its identity for decades, from the Apple II's early adoption to later 1:1 laptop programs — a strategy that shaped both the company's fortunes and how millions of people first learned to compute."],
     "storyType": "Company", "era": "1980s", "topics": ["Education", "Apple"],
-    "imageSeed": "apple-edu", "readTime": 4, "isSample": false
+    "people": [], "organizations": ["Apple"],
+    "imageSeed": "apple-edu", "readTime": 4,
+    "relatedArtifacts": ["apple-iic"], "relatedStories": ["classroom-computer-revolution"], "isSample": false
   },
   {
     "id": "mainframes-to-pcs", "slug": "from-mainframes-to-pcs",
     "title": "From Mainframes to PCs",
     "summary": "A timeline of change across decades of innovation, from room-filling systems to a machine on every desk.",
+    "body": ["In roughly three decades, computing moved from a small number of room-sized, institution-owned mainframes to tens of millions of individually owned personal computers — a compression of scale and cost with few parallels in industrial history."],
     "storyType": "Innovation", "era": "1960s–2000s", "topics": ["Mainframes", "Personal Computing"],
-    "imageSeed": "timeline", "readTime": 8, "isSample": false
+    "people": [], "organizations": ["IBM"],
+    "imageSeed": "timeline", "readTime": 8,
+    "relatedArtifacts": ["ibm-1401", "ibm-5150"], "relatedStories": ["how-punch-cards-worked"], "isSample": false
   },
   {
     "id": "women-who-changed-computing", "slug": "women-who-changed-computing",
     "title": "Women Who Changed Computing",
     "summary": "Trailblazers whose contributions opened doors across the history of computing.",
+    "body": ["From Ada Lovelace's 19th-century notes on the Analytical Engine — often cited as the first published computer algorithm — to Grace Hopper's pioneering compiler work at the U.S. Navy and the many uncredited women who programmed ENIAC by hand, women's contributions to computing run through the entire history this museum preserves."],
     "storyType": "Community", "era": "All Eras", "topics": ["Women in Computing"],
-    "imageSeed": "women-computing", "readTime": 7, "isSample": false
+    "people": [], "organizations": [],
+    "imageSeed": "women-computing", "readTime": 7,
+    "relatedArtifacts": [], "relatedStories": [], "isSample": false
   },
   {
     "id": "birth-of-networking", "slug": "the-birth-of-networking",
     "title": "The Birth of Networking",
     "summary": "Connecting machines, sharing ideas, building the future — long before the public internet.",
+    "body": ["Ethernet, developed at Xerox PARC in the early 1970s alongside the Alto, and the ARPANET research network that preceded the modern internet both trace the earliest steps toward the connected computing world we now take for granted."],
     "storyType": "Innovation", "era": "1970s", "topics": ["Networking"],
-    "imageSeed": "networking", "readTime": 6, "isSample": false
+    "people": [], "organizations": ["Xerox"],
+    "imageSeed": "networking", "readTime": 6,
+    "relatedArtifacts": ["xerox-alto"], "relatedStories": [], "isSample": false
   },
   {
     "id": "giving-hardware-a-second-life", "slug": "giving-hardware-a-second-life",
     "title": "Giving Hardware a Second Life",
     "summary": "Restoration stories from the workbench to the show floor.",
+    "body": ["Every working machine on RICM's floor represents hours of volunteer diagnostic work, scavenged parts, and — often — a fair amount of good-natured debate about the 'right' way to restore a piece of history."],
     "storyType": "Restoration", "era": "Restoration", "topics": ["Restorations"],
-    "imageSeed": "second-life", "readTime": 7, "isSample": true
+    "people": [], "organizations": [],
+    "imageSeed": "second-life", "readTime": 7,
+    "relatedArtifacts": ["dec-pdp-8e-sid"], "relatedStories": ["restoring-a-pdp-8"], "isSample": true
   },
   {
     "id": "when-storage-filled-a-room", "slug": "when-storage-filled-a-room",
     "title": "When Storage Filled a Room",
     "summary": "Tapes, disks, and drives that kept the digital world spinning — and the floor space they used to need.",
+    "body": ["A single gigabyte of storage once required equipment that filled a room and a dedicated power supply; today it fits, many thousands of times over, on a fingernail-sized chip. RICM's Data Storage exhibit traces that astonishing compression."],
     "storyType": "Innovation", "era": "1970s", "topics": ["Data Storage"],
-    "imageSeed": "storage-room", "readTime": 6, "isSample": false
+    "people": [], "organizations": [],
+    "imageSeed": "storage-room", "readTime": 6,
+    "relatedArtifacts": ["ibm-1401"], "relatedStories": ["birth-of-the-floppy-disk"], "isSample": false
   }
 ]

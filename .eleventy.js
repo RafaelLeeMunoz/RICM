@@ -92,6 +92,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("featuredStory", () =>
     STORIES.find((s) => s.id === "rise-of-home-computing")
   );
+  // pageStoriesList() features a DIFFERENT story than Home's own featuredStory above —
+  // a separate global so the two can never collide.
+  eleventyConfig.addGlobalData("storiesListFeaturedStory", () =>
+    STORIES.find((s) => s.id === "norman-delucia-life-in-computing")
+  );
+  // Ported from site.html's allTopics() -- every distinct topic across all stories, sorted.
+  eleventyConfig.addGlobalData("allStoryTopics", () => {
+    const set = new Set();
+    STORIES.forEach((s) => s.topics.forEach((t) => set.add(t)));
+    return Array.from(set).sort();
+  });
   // Mirrors pageExplore()'s `D.ARTIFACTS.find(...)` / `D.ARTIFACTS.filter(...).slice(0,3)` —
   // computed here rather than in the template because Nunjucks has no way to author an
   // inline filter/find predicate function, and a for-loop-scoped counter doesn't reliably
@@ -116,6 +127,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("locationLabel", function (id) {
     const l = LOCATIONS.find((x) => x.id === id);
     return l ? l.label : id;
+  });
+  // Ported from pageStoryDetail()'s inline `.map(id=>D.ARTIFACTS.find(...))`.
+  eleventyConfig.addFilter("resolveArtifacts", function (ids) {
+    return (ids || []).map((id) => ARTIFACTS.find((a) => a.id === id)).filter(Boolean);
+  });
+  eleventyConfig.addFilter("resolveStories", function (ids) {
+    return (ids || []).map((id) => STORIES.find((s) => s.id === id)).filter(Boolean);
+  });
+  // Ported from pageStoryDetail()'s `D.STORIES.filter(x=>x.id!==s.id && x.storyType===s.storyType).slice(0,3)`.
+  eleventyConfig.addFilter("moreLikeThisStory", function (allStories, excludeId, storyType) {
+    return allStories.filter((s) => s.id !== excludeId && s.storyType === storyType).slice(0, 3);
   });
 
   return {

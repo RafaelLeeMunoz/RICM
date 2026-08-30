@@ -84,6 +84,53 @@
 </div>
 {% endmacro %}
 
+{# Ported from site.html's storyCard(s). Also carries data-era/data-type/data-topics/
+   data-search attributes so the Stories list page's client-side filtering (see main.js)
+   can match against this card with no separate lookup needed -- harmless metadata on any
+   other page that reuses this macro. #}
+{% macro storyCard(s) %}
+{% set typeTagMap = {
+  "Person": "tag-purple", "Company": "tag-navy", "Innovation": "tag-teal", "Artifact": "tag-navy",
+  "Restoration": "tag-orange", "Community": "tag-purple", "Personal History": "tag-purple"
+} %}
+{% set typeTag = typeTagMap[s.storyType] or "tag-navy" %}
+<a class="obj-card story-card" href="/stories/{{ s.slug }}/"
+  data-era="{{ s.era }}" data-type="{{ s.storyType }}" data-topics="{{ s.topics | join(',') }}"
+  data-search="{{ (s.title ~ ' ' ~ s.summary ~ ' ' ~ (s.topics | join(' '))) | lower }}">
+  <div class="thumb-wrap"><img src="{% placeholderImage s.imageSeed, 1200, 750 %}" alt="" loading="lazy"></div>
+  <div class="obj-card-body">
+    <span class="tag {{ typeTag }}">{{ s.storyType }}</span>
+    <h3 style="margin-top:.3em;">{{ s.title }}</h3>
+    <p class="desc">{{ s.summary }}</p>
+    <div class="obj-meta"><span>{% icon "clock" %} {{ s.readTime }} min read</span><span>{{ s.era }}</span></div>
+  </div>
+</a>
+{% endmacro %}
+
+{# Ported from site.html's relatedCard(kind, item) -- kind is "artifact"|"story"|"program". #}
+{% macro relatedCard(kind, item) %}
+{% if kind == "artifact" %}
+  {% set href = "/collection/" ~ item.slug ~ "/" %}
+  {% set imgSeed = item.imageSeeds[0] %}
+  {% set label = item.name %}
+  {% set sub = item.year ~ " · " ~ item.manufacturer %}
+{% elif kind == "story" %}
+  {% set href = "/stories/" ~ item.slug ~ "/" %}
+  {% set imgSeed = item.imageSeed %}
+  {% set label = item.title %}
+  {% set sub = item.storyType %}
+{% else %}
+  {% set href = "/programs/" ~ item.slug ~ "/" %}
+  {% set imgSeed = item.imageSeed %}
+  {% set label = item.title %}
+  {% set sub = "Ages " ~ item.ageRange %}
+{% endif %}
+<a class="related-card" href="{{ href }}">
+  <div class="thumb-wrap"><img src="{% placeholderImage imgSeed, 600, 450 %}" alt="" loading="lazy"></div>
+  <div class="rc-body"><strong>{{ label }}</strong><span>{{ sub }}</span></div>
+</a>
+{% endmacro %}
+
 {# Ported from site.html's programCard(p, saved). `saved` is always rendered false
    here (there's no per-visitor knowledge at BUILD time) -- main.js corrects the
    save-button's aria-pressed/label/icon fill from localStorage once the page

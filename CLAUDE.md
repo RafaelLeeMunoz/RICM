@@ -106,16 +106,73 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, Explore, About, Learn, Create, Support, and Events
+### What's actually migrated so far: Home, Visit, Explore, About, Learn, Create, Support, Events, and Stories
 
 Every other route from site.html's router table (`/collection`,
-`/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`,
-`/programs`, `/programs/:slug`, `/search`) is **not built yet** — those links in the new
-nav/footer/Home page point at real future paths (`/programs/`, etc.) that will 404 until each
-page gets its own migration pass, same shape as these eight. Follow the same pattern per page:
-read the matching `pageXxx()` function in `site.html`, port its markup into a new `.njk`
-template, add any data it needs to `_data/` (with full fields this time, not the trimmed set
-below), wire real nav routes.
+`/collection/:slug`, `/exhibits/data-storage(/:chapter)`, `/programs`, `/programs/:slug`,
+`/search`) is **not built yet** — those links in the new nav/footer/Home page point at real
+future paths (`/programs/`, etc.) that will 404 until each page gets its own migration pass,
+same shape as these nine. Follow the same pattern per page: read the matching `pageXxx()`
+function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
+`_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Stories** (`src/stories.njk` list + `src/stories/story-detail.njk` detail, ninth migration
+pass) needed a real, explicit scope decision first — flagged and asked about directly rather
+than guessed, since site.html's `pageStoriesList` is a FULL client-side faceted search (debounced
+search box, era/type/topic checkboxes, URL-query-param state, real pagination, a mobile filter
+drawer) that has no clean equivalent in a static site (there's no per-request server to read a
+`?topic=x` query string). **Per direct user decision: "basic client-side filtering"** — real
+filtering, simpler than the original, not the full faceted-search rebuild and not a
+filter-free static list either. This same decision will need to be made again for Collection and
+Programs list pages, which have the identical shape of problem.
+
+- **`src/_data/stories.json` filled back in to full fields** (`body`, `relatedArtifacts`,
+  `relatedStories`, `people`, `organizations`) — trimmed during the Home migration to just what
+  Home needed; this is the first page that needed the rest. New **`eras.json`** and
+  **`storyTypes.json`** data files (the latter a bare array of strings, not objects with
+  `id`/`label` like every other filter-option file so far, since site.html's own `STORY_TYPES`
+  constant is itself just a flat string array used as both value and label).
+- **`story-detail.njk` uses the exact same Eleventy pagination pattern Events established** —
+  `pagination: { data: stories, size: 1, alias: story }` + a templated `permalink` +
+  `eleventyComputed` title/description. Confirmed live: the build wrote all 15 real story pages
+  with zero errors, one per `stories.json` entry.
+- New `.eleventy.js` filters: **`resolveArtifacts`**/**`resolveStories`** (ID array → full-object
+  array, ported from `pageStoryDetail`'s inline `.map(id=>D.ARTIFACTS.find(...))`) and
+  **`moreLikeThisStory`** (same "Nunjucks can't do inline predicates" reasoning as Explore's
+  `featuredArtifact` fix — `{{ stories | moreLikeThisStory(story.id, story.storyType) }}`). New
+  global data **`storiesListFeaturedStory`** (a SEPARATE global from Home's own `featuredStory`
+  — the two pages feature different stories, so reusing one name would have been a real
+  collision) and **`allStoryTopics`** (ported from `allTopics()`).
+- New macros: **`storyCard(s)`** (ported from `storyCard`, plus `data-era`/`data-type`/
+  `data-topics`/`data-search` attributes baked directly onto the card's root element — the hook
+  the list page's client-side filtering reads, harmless metadata on any other page that reuses
+  this macro) and **`relatedCard(kind, item)`** (ported verbatim, handles `artifact`/`story`/
+  `program` kinds — the `program` branch is unverified until Programs exists, same
+  "built ahead of need" situation as Learn's `programCard`).
+- **The "basic filtering" implementation, in `main.js`**: all 15 stories render server-side
+  (no pagination needed at 15 items); a filter function reads checked era/type/topic checkboxes
+  plus the search box and shows/hides each already-rendered `.story-card` via `style.display`,
+  updating a results count and toggling a real (build-time-rendered, initially-hidden) empty
+  state. Deliberately NOT ported: URL rewriting as filters change, debouncing (instant filtering
+  reads fine at 15 items), and the mobile filter drawer. What WAS added, because leaving it out
+  would have made real navigation links dead: the page reads `location.search` ONCE on load
+  (not synced afterward) so `/stories/?type=Person` — used by both this page's own "Browse By"
+  tiles and Explore's earlier-migrated nav links — actually pre-filters correctly.
+  - **A real cross-checkbox sync problem, anticipated and fixed before it shipped**: the
+    "Popular Topics" quick-pick row and the sidebar's full topic list both need `data-filter=
+    "topic"` checkboxes for the SAME topic values (e.g. "Apple" appears in both), as two
+    independent DOM elements. Checking one without syncing the other would filter correctly
+    (the filter function ORs across every checked element regardless of which one) but read as
+    visually broken (the sidebar checkbox not reflecting what the pill shows as active).
+    `syncFilterCheckboxes(filterName, value, checked)` keeps every matching element in sync on
+    every change — confirmed live: checking a popular-topic pill was confirmed to check the
+    matching sidebar checkbox too, not just filter correctly.
+  - **A page-specific `<style>` block, a first for this project's migration** — the sidebar+
+    results layout deliberately does NOT use the existing `.layout-with-filters`/`.filter-panel`
+    classes, since those hide the filter sidebar entirely below 1199px and expect a mobile
+    drawer trigger this page doesn't build. A small inline `<style>` in `stories.njk` stacks the
+    two columns under 900px instead, keeping the filters reachable on every screen size with no
+    drawer at all — a deliberate, documented deviation, not an oversight.
 
 **Events** (`src/events.njk` + `src/events-archive.njk` + `src/events/event-detail.njk`) was
 migrated eighth — three real routes at once (`/events/`, `/events/archive/`, and one real
@@ -453,3 +510,20 @@ segment; a real click on a past event's "View Recap" card navigated to its own r
 page (`/events/hour-of-code-family-night-2025/`) with `get_page_text` confirming every quickfact.
 The `emptyState` macro's actual rendering was not exercised (both lists always have real content
 right now) — flagged honestly per the note above, not asserted as tested when it wasn't.
+
+**Stories verified thoroughly, including the empty state this time** (Events' own note above
+flagged that gap; this pass closed the equivalent one): the build wrote all 15 real story pages
+plus the list page with zero errors — the strongest single confirmation pagination worked again.
+Output inspected directly confirmed a story with a Restoration storyType correctly resolved 2
+related artifacts, 1 related story, AND a real "More Restoration Stories" section (the one other
+Restoration-type story, correctly excluding itself) — proving `resolveArtifacts`/`resolveStories`/
+`moreLikeThisStory` all work together correctly on real data, not just individually. Live in the
+browser, every filtering claim was tested with real DOM interaction, not inferred from the code:
+a Content Type filter narrowed 15 -> 1 correctly; Reset genuinely restored all 15 and unchecked
+the box; a text search for "PDP" narrowed to exactly the one matching story; a nonsense search
+term correctly triggered the real empty-state block (grid hidden, empty state shown — the exact
+case Events couldn't exercise); checking a "Popular Topics" pill was confirmed to sync the
+matching sidebar checkbox's checked state, not just filter correctly; and navigating fresh to
+`/stories/?type=Person` (simulating a real click from Explore's nav or this page's own "Browse
+By" tile) was confirmed to arrive pre-filtered to exactly the one matching story. A full
+click-through from the list to a real detail page was also confirmed via `get_page_text`.

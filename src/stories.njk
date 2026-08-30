@@ -1,0 +1,105 @@
+---
+layout: base.njk
+title: "Stories & History — RICM"
+---
+{% import "macros.njk" as m %}
+<style>
+  /* Page-specific responsive tweak: stack the filter sidebar above results on
+     narrow screens WITHOUT hiding it (unlike the .layout-with-filters/
+     .filter-panel classes elsewhere, which hide the sidebar entirely below
+     1200px and expect a mobile drawer -- this page deliberately has no
+     drawer, see CLAUDE.md, so the sidebar has to stay reachable another way). */
+  .stories-layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-7); align-items: start; }
+  @media (max-width: 900px) { .stories-layout { grid-template-columns: 1fr; } }
+</style>
+
+<section class="hero short" data-surface="dark">
+  <div class="hero-media"><img src="{% placeholderImage "stories-hero", 1600, 700 %}" alt=""></div>
+  <div class="container hero-inner split-narrow">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Explore", "/explore/"], ["Stories", "/stories/"]]) }}
+      <span class="eyebrow hero-eyebrow c-purple">Stories</span>
+      <h1>People. Innovation. Impact.</h1>
+      <p class="lede">Explore the ideas, breakthroughs, and people behind the technology that changed our world.</p>
+      <div class="search-field" style="margin-top:var(--space-6);max-width:520px;">
+        {% icon "search" %}
+        <label for="stories-search" class="visually-hidden">Search stories</label>
+        <input type="search" id="stories-search" class="input" placeholder="Search stories, people, companies, topics…">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad-sm bg-white"><div class="container">
+  <h2 class="eyebrow">Popular Topics</h2>
+  <div class="popular-search-list" style="margin-top:var(--space-3);">
+    {% for t in allStoryTopics.slice(0, 8) %}
+    <label class="pill" style="cursor:pointer;"><input type="checkbox" data-filter="topic" value="{{ t }}" class="visually-hidden"> {{ t }}</label>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <div class="featured-story">
+    <div class="fs-media"><img src="{% placeholderImage storiesListFeaturedStory.imageSeed, 1200, 750 %}" alt=""></div>
+    <div class="fs-body">
+      <span class="eyebrow c-purple">Featured Story · {{ storiesListFeaturedStory.storyType }}</span>
+      <h3>{{ storiesListFeaturedStory.title }}</h3>
+      <p class="desc">{{ storiesListFeaturedStory.summary }}</p>
+      <a class="btn btn-primary" href="/stories/{{ storiesListFeaturedStory.slug }}/">Read Story {% icon "arrowRight" %}</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-white"><div class="container">
+  <div class="stories-layout">
+    <aside aria-label="Story filters" style="background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-5);">
+      <div class="filter-group-head"><h3 style="font-size:var(--fs-md);">Filters</h3><button type="button" class="btn-ghost btn-sm" id="stories-reset" style="font-weight:700;">Reset</button></div>
+      <div class="filter-group"><div class="filter-group-head"><h3>Content Type</h3></div>
+        <div class="filter-options stacked">
+          {% for t in storyTypes %}
+          <label class="check-row"><input type="checkbox" data-filter="type" value="{{ t }}"> {{ t }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="filter-group"><div class="filter-group-head"><h3>Era</h3></div>
+        <div class="filter-options stacked">
+          {% for e in eras %}
+          <label class="check-row"><input type="checkbox" data-filter="era" value="{{ e.id }}"> {{ e.label }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="filter-group"><div class="filter-group-head"><h3>Topic</h3></div>
+        <div class="filter-options">
+          {% for t in allStoryTopics %}
+          <label class="pill" style="cursor:pointer;"><input type="checkbox" data-filter="topic" value="{{ t }}" class="visually-hidden"> {{ t }}</label>
+          {% endfor %}
+        </div>
+      </div>
+    </aside>
+    <div>
+      <div class="results-toolbar">
+        <div class="results-count" id="stories-results-count">{{ stories.length }} <span>stories found</span></div>
+      </div>
+      <div class="card-grid cols-3" id="stories-card-grid">
+        {% for s in stories %}
+        {{ m.storyCard(s) }}
+        {% endfor %}
+      </div>
+      <div id="stories-empty-state" hidden>
+        {{ m.emptyState("No stories match your filters", "Try a different topic, era, or keyword — or clear your filters to see the full library.") }}
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <span class="eyebrow">Browse By</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Another way in</h2>
+  <div class="card-grid cols-4">
+    <a class="create-tile" href="/stories/?type=Person" style="aspect-ratio:3/2;"><img src="{% placeholderImage "browse-people", 700, 500 %}" alt=""><div class="ct-body">{% icon "users" %}<strong>People</strong><span>Explore biographies and personal stories</span></div></a>
+    <a class="create-tile" href="/stories/?type=Company" style="aspect-ratio:3/2;"><img src="{% placeholderImage "browse-companies", 700, 500 %}" alt=""><div class="ct-body">{% icon "compass" %}<strong>Companies</strong><span>Discover the organizations that built the industry</span></div></a>
+    <a class="create-tile" href="/collection/#era" style="aspect-ratio:3/2;"><img src="{% placeholderImage "browse-eras", 700, 500 %}" alt=""><div class="ct-body">{% icon "calendar" %}<strong>Eras</strong><span>Travel through time and key moments</span></div></a>
+    <a class="create-tile" href="/exhibits/data-storage/" style="aspect-ratio:3/2;"><img src="{% placeholderImage "browse-tech", 700, 500 %}" alt=""><div class="ct-body">{% icon "chip" %}<strong>Technologies</strong><span>Dive into the innovations that changed everything</span></div></a>
+  </div>
+</div></section>

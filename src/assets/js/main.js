@@ -185,6 +185,85 @@
     });
   });
 
+  /* ---- Stories page: basic client-side filtering (search + era/type/topic
+     checkboxes), per direct user direction -- a real but deliberately
+     simpler alternative to site.html's full URL-synced faceted search
+     (debounced search, filter drawer, pagination, chip removal). All 15
+     stories render server-side; this just shows/hides cards already on the
+     page and never rewrites the URL as filters change. It DOES read the
+     URL once on load, so a deep link like /stories/?type=Person (used by
+     this page's own "Browse By" tiles, and by Explore's nav) still lands
+     pre-filtered correctly. ---- */
+  var storiesGrid = qs("#stories-card-grid");
+  if (storiesGrid) {
+    var storyCards = Array.prototype.slice.call(storiesGrid.querySelectorAll(".story-card"));
+    var storiesEmptyState = qs("#stories-empty-state");
+    var storiesCount = qs("#stories-results-count");
+    var storiesSearch = qs("#stories-search");
+
+    function getCheckedFilterValues(name) {
+      return Array.prototype.slice
+        .call(document.querySelectorAll('[data-filter="' + name + '"]:checked'))
+        .map(function (el) { return el.value; });
+    }
+    // Multiple checkboxes can share the same [data-filter]+value (the "Popular
+    // Topics" quick pills duplicate some of the sidebar's topic checkboxes) --
+    // keep every instance of a given value in sync when one of them changes.
+    function syncFilterCheckboxes(name, value, checked) {
+      document.querySelectorAll('[data-filter="' + name + '"][value="' + value + '"]').forEach(function (el) {
+        el.checked = checked;
+      });
+    }
+
+    function applyStoriesFilters() {
+      var eras = getCheckedFilterValues("era");
+      var types = getCheckedFilterValues("type");
+      var topics = getCheckedFilterValues("topic");
+      var kw = (storiesSearch ? storiesSearch.value : "").trim().toLowerCase();
+      var visibleCount = 0;
+      storyCards.forEach(function (card) {
+        var cardTopics = card.dataset.topics ? card.dataset.topics.split(",") : [];
+        var matches = true;
+        if (eras.length && eras.indexOf(card.dataset.era) === -1) matches = false;
+        if (matches && types.length && types.indexOf(card.dataset.type) === -1) matches = false;
+        if (matches && topics.length && !topics.some(function (t) { return cardTopics.indexOf(t) !== -1; })) matches = false;
+        if (matches && kw && card.dataset.search.indexOf(kw) === -1) matches = false;
+        card.style.display = matches ? "" : "none";
+        if (matches) visibleCount++;
+      });
+      if (storiesCount) storiesCount.innerHTML = visibleCount + " <span>stor" + (visibleCount === 1 ? "y" : "ies") + " found</span>";
+      storiesGrid.hidden = visibleCount === 0;
+      if (storiesEmptyState) storiesEmptyState.hidden = visibleCount !== 0;
+    }
+
+    document.querySelectorAll("[data-filter]").forEach(function (input) {
+      input.addEventListener("change", function () {
+        syncFilterCheckboxes(input.dataset.filter, input.value, input.checked);
+        applyStoriesFilters();
+      });
+    });
+    if (storiesSearch) storiesSearch.addEventListener("input", applyStoriesFilters);
+    var storiesReset = qs("#stories-reset");
+    if (storiesReset) {
+      storiesReset.addEventListener("click", function () {
+        document.querySelectorAll("[data-filter]").forEach(function (el) { el.checked = false; });
+        if (storiesSearch) storiesSearch.value = "";
+        applyStoriesFilters();
+      });
+    }
+
+    // Pre-filter from the URL once on load (?type=Person, ?era=1980s,
+    // ?topic=Robotics -- comma-joined for multiple values, matching the
+    // convention Learn's Program Finder already writes).
+    var initialParams = new URLSearchParams(window.location.search);
+    ["era", "type", "topic"].forEach(function (name) {
+      var raw = initialParams.get(name);
+      if (!raw) return;
+      raw.split(",").forEach(function (value) { syncFilterCheckboxes(name, value, true); });
+    });
+    applyStoriesFilters();
+  }
+
   /* ---- support CTAs (Support page), ported from site.html's wireSupportModal.
      #support-modal-root exists as a reserved-but-unused mount point in
      site.html too -- no real modal is wired up there yet, ported as-is. ---- */

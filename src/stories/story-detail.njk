@@ -1,0 +1,84 @@
+---
+layout: base.njk
+pagination:
+  data: stories
+  size: 1
+  alias: story
+permalink: "/stories/{{ story.slug }}/"
+eleventyComputed:
+  title: "{{ story.title }} — RICM Stories"
+  description: "{{ story.summary }}"
+---
+{% import "macros.njk" as m %}
+<section class="hero" data-surface="dark">
+  <div class="hero-media"><img src="{% placeholderImage story.imageSeed, 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner split-narrow">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Explore", "/explore/"], ["Stories", "/stories/"], [story.title, "#"]]) }}
+      <span class="eyebrow hero-eyebrow c-purple">{{ story.storyType }} · {{ story.era }}</span>
+      <h1>{{ story.title }}</h1>
+      <p class="lede">{{ story.summary }}</p>
+      <div style="margin-top:var(--space-4);display:flex;gap:.6em;align-items:center;flex-wrap:wrap;">
+        <span class="tag tag-navy" style="background:rgba(255,255,255,.12);color:#fff;">{% icon "clock" %} {{ story.readTime }} min read</span>
+        {% if story.isSample %}<span class="proto-badge">{% icon "alertCircle" %} Prototype record</span>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white"><div class="container">
+  <h2 class="visually-hidden">Full Story</h2>
+  <div class="two-col">
+    <div class="measure">
+      {% for p in story.body %}
+      <p style="font-size:var(--fs-md);color:var(--slate);line-height:1.75;margin-bottom:1.3em;">{{ p }}</p>
+      {% endfor %}
+      {% if story.topics.length %}
+      <div style="margin-top:var(--space-6);display:flex;gap:.5em;flex-wrap:wrap;">
+        {% for t in story.topics %}
+        <a class="pill" href="/stories/?topic={{ t | urlencode }}">{{ t }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div>
+      <div class="quickfacts">
+        <h3 style="margin-bottom:1em;">Story Details</h3>
+        <div class="qf-row">{% icon "book" %}<div><div class="qf-k">Type</div><div class="qf-v">{{ story.storyType }}</div></div></div>
+        <div class="qf-row">{% icon "calendar" %}<div><div class="qf-k">Era</div><div class="qf-v">{{ story.era }}</div></div></div>
+        {% if story.organizations.length %}
+        <div class="qf-row">{% icon "compass" %}<div><div class="qf-k">Organizations</div><div class="qf-v">{{ story.organizations | join(", ") }}</div></div></div>
+        {% endif %}
+        {% if story.people.length %}
+        <div class="qf-row">{% icon "users" %}<div><div class="qf-k">People</div><div class="qf-v">{{ story.people | join(", ") }}</div></div></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div></section>
+
+{% set relArtifacts = story.relatedArtifacts | resolveArtifacts %}
+{% set relStories = story.relatedStories | resolveStories %}
+{% set moreLikeThis = stories | moreLikeThisStory(story.id, story.storyType) %}
+<section class="section-pad bg-warm"><div class="container">
+  <span class="eyebrow">Keep Exploring</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Related to this story</h2>
+  {% if relArtifacts.length %}
+  <h3 style="margin-bottom:var(--space-4);">Related Objects</h3>
+  <div class="related-strip" style="margin-bottom:var(--space-7);">
+    {% for a in relArtifacts %}{{ m.relatedCard("artifact", a) }}{% endfor %}
+  </div>
+  {% endif %}
+  {% if relStories.length %}
+  <h3 style="margin-bottom:var(--space-4);">Related Stories</h3>
+  <div class="related-strip" style="margin-bottom:var(--space-7);">
+    {% for s in relStories %}{{ m.relatedCard("story", s) }}{% endfor %}
+  </div>
+  {% endif %}
+  {% if moreLikeThis.length %}
+  <h3 style="margin-bottom:var(--space-4);">More {{ story.storyType }} Stories</h3>
+  <div class="related-strip">
+    {% for s in moreLikeThis %}{{ m.relatedCard("story", s) }}{% endfor %}
+  </div>
+  {% endif %}
+</div></section>
