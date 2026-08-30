@@ -1,0 +1,8 @@
+[
+  { "label": "Visit", "route": "/visit/", "accent": "blue" },
+  { "label": "Explore", "route": "/explore/", "accent": "blue" },
+  { "label": "Learn", "route": "/learn/", "accent": "teal" },
+  { "label": "Create", "route": "/create/", "accent": "orange" },
+  { "label": "Events", "route": "/events/", "accent": "purple" },
+  { "label": "About", "route": "/about/", "accent": "navy" }
+]

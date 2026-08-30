@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description or site.defaultDescription }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<div id="proto-banner" class="proto-banner" role="region" aria-label="Prototype notice" hidden>
+  <div class="container">
+    {% icon "alertCircle" %}
+    <span><strong>Design prototype.</strong> Artifact, story, program and event details shown are representative sample content for demonstration — not verified museum records.</span>
+    <button type="button" id="proto-banner-close" aria-label="Dismiss this notice">
+      {% icon "close" %}
+    </button>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect width="40" height="40" rx="9" fill="#00C2B2"/>
+        <path d="M9 27V13h4.4l4.2 9.6L21.8 13H26v14h-3.4v-9l-3.9 9h-2.6l-3.9-9v9H9Z" fill="#0E1A28"/>
+        <rect x="28.5" y="13" width="3" height="14" rx="1" fill="#0E1A28"/>
+      </svg>
+      <span>
+        <span class="brand-word">RICM</span>
+        <span class="brand-sub">Computer&nbsp;Museum</span>
+      </span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <ul style="display:flex;list-style:none;margin:0;padding:0;">
+        {% for item in nav %}
+        <li class="nav-item{% if page.url.startsWith(item.route) %} is-active{% endif %}">
+          <a class="nav-link" href="{{ item.route }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="utility-actions">
+      <button type="button" class="icon-btn" id="search-open-btn" aria-haspopup="dialog" aria-controls="search-overlay">
+        {% icon "search" %}
+        <span class="visually-hidden">Search RICM</span>
+      </button>
+      <a href="/support/" class="btn btn-teal btn-sm support-btn-desktop">Support RICM</a>
+      <button type="button" class="icon-btn menu-toggle" id="mobile-menu-btn" aria-haspopup="dialog" aria-controls="mobile-nav-panel" aria-expanded="false">
+        {% icon "list" %}
+        <span class="visually-hidden">Open menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav-panel" id="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="mobile-nav-head">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#00C2B2"/><path d="M9 27V13h4.4l4.2 9.6L21.8 13H26v14h-3.4v-9l-3.9 9h-2.6l-3.9-9v9H9Z" fill="#0E1A28"/><rect x="28.5" y="13" width="3" height="14" rx="1" fill="#0E1A28"/></svg>
+      <span><span class="brand-word">RICM</span><span class="brand-sub">Computer&nbsp;Museum</span></span>
+    </a>
+    <button type="button" class="icon-btn" id="mobile-menu-close" aria-label="Close menu">
+      {% icon "close" %}
+    </button>
+  </div>
+  <div class="mobile-nav-body">
+    {% for item in nav %}
+    <a class="mnav-top-link" href="{{ item.route }}">{{ item.label }}</a>
+    {% endfor %}
+    <div class="mnav-cta">
+      <a class="btn btn-teal btn-block" href="/support/">Support RICM</a>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY (UI only — no working search index yet, see CLAUDE.md) -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search RICM" hidden>
+  <div class="search-panel">
+    <div class="search-panel-head">
+      <div class="search-field">
+        {% icon "search" %}
+        <label for="global-search-input" class="visually-hidden">Search artifacts, stories, programs, events and more</label>
+        <input type="search" id="global-search-input" class="input" placeholder="Search artifacts, stories, people, programs, events…" autocomplete="off">
+      </div>
+      <button type="button" class="icon-btn" id="search-close-btn" aria-label="Close search" style="color:#33383F;">
+        {% icon "close" %}
+      </button>
+    </div>
+    <div class="search-panel-body"></div>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+{{ content | safe }}
+</main>
+
+<footer class="site-footer" id="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="/" class="brand">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#00C2B2"/><path d="M9 27V13h4.4l4.2 9.6L21.8 13H26v14h-3.4v-9l-3.9 9h-2.6l-3.9-9v9H9Z" fill="#0E1A28"/><rect x="28.5" y="13" width="3" height="14" rx="1" fill="#0E1A28"/></svg>
+        <span><span class="brand-word">RICM</span><span class="brand-sub">Computer&nbsp;Museum</span></span>
+      </a>
+      <p style="font-size:var(--fs-sm);color:#8FA0BC;margin-bottom:1em;">{{ site.tagline }}</p>
+      <address>
+        {{ site.address.street }}<br>{{ site.address.cityStateZip }}<br>
+        <a href="tel:{{ site.address.phoneHref }}">{{ site.address.phone }}</a><br>
+        <a href="mailto:{{ site.address.email }}">{{ site.address.email }}</a>
+      </address>
+      <div class="footer-social">
+        <a class="icon-btn" href="{{ site.social.facebook }}" aria-label="RICM on Facebook">{% icon "facebook" %}</a>
+        <a class="icon-btn" href="{{ site.social.instagram }}" aria-label="RICM on Instagram">{% icon "instagram" %}</a>
+        <a class="icon-btn" href="{{ site.social.youtube }}" aria-label="RICM on YouTube">{% icon "youtube" %}</a>
+      </div>
+    </div>
+    {% for item in nav %}
+    <div class="footer-col"><h3>{{ item.label }}</h3><ul>
+      <li><a href="{{ item.route }}">{{ item.label }}</a></li>
+    </ul></div>
+    {% endfor %}
+    <div class="footer-col"><h3>Support</h3><ul>
+      <li><a href="/support/#donate">Donate</a></li>
+      <li><a href="/support/#donate-tech">Donate Technology</a></li>
+      <li><a href="/support/#volunteer">Volunteer</a></li>
+      <li><a href="/support/#membership">Membership</a></li>
+      <li><a href="/support/#partnership">Corporate Partnerships</a></li>
+      <li><a href="/support/#props">Vintage Tech &amp; Props</a></li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; {{ currentYear }} Rhode Island Computer Museum · 501(c)(3) nonprofit organization</span>
+    <div class="footer-legal">
+      <a href="/about/#documents">Privacy Policy</a>
+      <a href="/about/#documents">Accessibility</a>
+      <a href="/about/#documents">Terms of Use</a>
+      <a href="/about/#documents">Policies</a>
+    </div>
+  </div>
+</footer>
+
+<div id="a11y-announcer" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="a11y-announcer-assertive" role="alert" aria-live="assertive" aria-atomic="true" class="visually-hidden"></div>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

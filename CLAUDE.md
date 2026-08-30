@@ -56,18 +56,129 @@ Gitignored files still exist on disk locally for reference — just not tracked 
 session needs to read one of them for context (the design spec, the migration map), that's fine;
 they're just never committed.
 
-## Current status / the open decision
+## Decision made: migrating to Eleventy, real per-page HTML
 
-**This is a prototype, not yet deployed anywhere.** The single-file hash-routed SPA shape is fine
-for rapid iteration/demoing, but is very likely NOT what should actually ship — see the
-conversation this file was written from for the reasoning (SEO on hash routes, no per-page
-`<title>`/meta/social-preview tags, one big bundle instead of real cacheable pages, real
-bookmarkable/shareable URLs). Before real content goes in, expect a decision on:
+Per direct user decision: static site generator, GitHub Pages for now (the museum's own eventual
+host is unknown, so nothing here should assume a specific host). **Eleventy** was chosen over
+Astro/a hand-rolled build script specifically because it outputs plain static HTML/CSS/JS with no
+required client runtime — the most portable choice if the museum ends up hosting somewhere else
+later — and its template model (data -> template -> page) is a shallow migration from
+`site.html`'s existing data -> render-function -> page shape, not a rewrite.
 
-- Whether to migrate to a static site generator (real per-page HTML output, clean URLs, per-page
-  metadata) vs. keep client-side rendering but switch to real paths + prerendering.
-- Where this actually gets hosted (affects the build/deploy setup either way).
+`site.html` remains the reference implementation for design system, content shape, and
+page-by-page behavior for every route not yet migrated — it stays git-tracked (see Repo layout
+above) specifically so it keeps serving as that reference during the migration. Remove it from
+git once every route below has a real migrated equivalent.
 
-Until that's decided, treat `site.html` as the reference implementation for design system,
-content structure (`RICM_DATA`'s shape), and page-by-page behavior — not as the file that grows
-forever. Update this section once that decision is made and the real structure exists.
+### New site structure (Eleventy)
+
+```
+package.json / package-lock.json   -- Eleventy + deps (needs `npm install`)
+.eleventy.js                       -- config: passthrough copy, shortcodes, filters, global data
+src/
+  _data/
+    site.json          -- brand name/tagline/address/phone/email/social + canonical base URL
+    nav.json            -- top-level nav (label + route) -- SIMPLIFIED, see "Known gaps" below
+    icons.js             -- the full ICONS registry, ported verbatim from site.html
+    categories.json        -- the 8 collection categories (icon field now holds the REAL icon
+                              key directly -- site.html's separate catIcon() lookup function
+                              was folded into the data itself, one less indirection)
+    stories.json           -- all 15 stories, PARTIAL fields only (title/summary/slug/image/meta
+                              -- no body/relatedArtifacts/relatedStories yet, see "Known gaps")
+    events.json            -- all 7 events, full fields
+  _includes/
+    base.njk           -- the whole page shell: head, header/nav, mobile nav, search overlay
+                          (UI only, no working index yet), footer, script tag
+  assets/
+    css/style.css        -- the ENTIRE <style> block from site.html, copied verbatim (plus one
+                            real bug fix, see below) -- passthrough-copied as-is, not processed
+    js/main.js            -- progressive-enhancement JS only (mobile nav toggle, header
+                              compress-on-scroll, newsletter validation, proto-banner dismiss) --
+                              NOT a router; pages are real files now, so there's no client-side
+                              routing left at all
+  index.njk            -- Home page content (front matter: layout/title/description)
+```
+
+`.eleventy.js` also ports `RICM_PH` (site.html's inline-SVG placeholder-photo generator) as a
+`placeholderImage` shortcode — it now runs once at BUILD time instead of in the browser, so
+placeholder art is baked into the static HTML with zero client-side JS dependency at all, a real
+improvement over the prototype's own approach, not just a port. Two derived-data globals
+(`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
+(`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
+
+### What's actually migrated so far: Home only
+
+Every other route from site.html's router table (`/visit`, `/explore`, `/collection`,
+`/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`, `/learn`,
+`/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
+`/about`, `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home
+page point at real future paths (`/visit/`, `/learn/`, etc.) that will 404 until each page gets
+its own migration pass, same shape as this one. Follow the same pattern per page: read the
+matching `pageXxx()` function in `site.html`, port its markup into a new `.njk` template, add any
+data it needs to `_data/` (with full fields this time, not the trimmed set below), wire real nav
+routes.
+
+### Known gaps / deliberate simplifications, flagged so they're not mistaken for the final shape
+
+- **`nav.json` is top-level links only** — the mega-menu columns and feature-story/feature-
+  program callouts from site.html's `NAV` array were dropped for this pass. The dropdown mega-menu
+  interaction itself was NOT ported at all yet (real click-through to a page is what the nav does
+  now, not a hover panel) — a real follow-up, not an oversight left silently.
+- **`stories.json` only carries title/summary/slug/topics/era/storyType/imageSeed/readTime** — no
+  `body`, `people`, `organizations`, `relatedArtifacts`, `relatedStories` yet. Fine for Home (only
+  needs the one featured-story teaser) but the Stories list/detail pages will need the full
+  fields added back in when they're migrated.
+- **Global search is UI-only** — the overlay opens/closes (`main.js`) but there's no search index
+  wired up yet (site.html's own `runGlobalSearch`/`renderSearchOverlayBody` weren't ported this
+  pass either).
+- **`PROGRAMS`/`ARTIFACTS`/`ORGANIZATIONS`/`PEOPLE`/`DOCUMENTS`/`CREATE_RESOURCES`/`REDIRECT_MAP`/
+  `DATA_STORAGE_CHAPTERS`** from site.html's data layer haven't been ported to `_data/` at all yet
+  — none of them are needed by Home; port each one when its matching page is migrated.
+- **No GitHub Actions deploy workflow yet** — building/serving locally works (`npm run build` /
+  `npm run serve`), but nothing auto-deploys to GitHub Pages yet. Needs a workflow file plus a
+  decision on `pathPrefix` (a GitHub Pages *project* page like
+  `username.github.io/RICM` needs `.eleventy.js` to set `pathPrefix: "/RICM/"`; a custom domain or
+  a user/org page needs `pathPrefix: "/"`, the current default) — deferred since the final host
+  is still unknown.
+
+### A real, pre-existing bug found and fixed during verification
+
+Live-browser testing (not just reading the build output) caught a genuine contrast bug in
+site.html's OWN design system, not something the migration introduced: `.btn-outline` defaults to
+navy text/border on a transparent background, and `.bg-navy .btn-outline` overrides that to white
+— but the Hero section uses `.hero` (also a dark navy background), which had no matching override.
+"Explore the Museum" (and any future hero-section outline button) rendered navy-on-navy, nearly
+invisible — confirmed via computed styles (`color: rgb(14,26,40)` against a `rgb(14,26,40)`-ish
+background) before touching anything. Fixed with one small addition to `style.css`:
+`.hero .btn-outline` now gets the same white-on-transparent treatment `.bg-navy .btn-outline`
+already had. This is the one deliberate deviation from "CSS ported verbatim" — flagged here
+specifically so it's not mistaken for a copy error later.
+
+### Verified
+
+Real `npm install` + `npx @11ty/eleventy` build succeeds with zero errors, producing exactly
+`_site/index.html` + passthrough-copied `_site/assets/css/style.css` + `_site/assets/js/main.js`.
+Output HTML inspected directly: correct `<title>`/meta description/canonical URL, nav rendering
+real routes, every Home section (hero, info strip incl. real next-upcoming-event data sorted
+correctly, 6 start-here cards, featured story, 3 upcoming events sorted by date, 7 categories +
+"More Categories", Learn/Create bands, donate CTA, newsletter form) present with real substituted
+data and zero `undefined`/`[object Object]`/`NaN` leaks. Re-verified live in an actual browser via
+Eleventy's own dev server (`--serve`): screenshot confirmed the hero renders correctly with real
+fonts (Sora) and real inline-SVG placeholder art; `get_page_text` confirmed the full page's real
+text content matches expectations end-to-end; direct computed-style/DOM checks confirmed the
+`.hero .btn-outline` fix took effect, `.cat-grid`/`.footer-top` grids resolve to the right column
+counts, and the stylesheet actually loaded.
+
+**Real tool limitation hit, not a site bug**: the browser pane's `screenshot` action reliably
+returns a blank white image any time it's called shortly after a `scroll` action in this session
+(reproduced twice, unrelated to scroll amount) — confirmed NOT a rendering bug by checking the DOM
+at that exact scroll position (`document.elementFromPoint` found real, correctly-classed content
+there) and by using `get_page_text` instead, which returned the full, correct page text. Screenshot
+worked fine at the initial (unscrolled) top-of-page position both times. Worth trying
+`get_page_text`/direct DOM inspection first if a scrolled screenshot ever looks suspiciously blank
+again in this project, rather than assuming content failed to render.
+
+**Also required as a real environment prerequisite**: Node.js was not installed on this machine at
+all; installed via `winget install --id OpenJS.NodeJS.LTS` this session (LTS, v24) specifically so
+the build could be verified rather than shipped unverified. Whoever picks up the next page
+migration needs Node available the same way (or already will, if it's the same machine).

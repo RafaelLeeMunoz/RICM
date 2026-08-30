@@ -1,0 +1,107 @@
+[
+  {
+    "id": "norman-delucia-life-in-computing", "slug": "norman-delucia-and-a-life-in-computing",
+    "title": "Norman DeLucia and a Life in Computing",
+    "summary": "From a hobbyist tinkerer to a longtime RICM volunteer, Norman DeLucia's decades of collecting helped shape the museum's holdings and its restoration culture.",
+    "storyType": "Community", "era": "2000s", "topics": ["Rhode Island", "Volunteers", "Restorations"],
+    "imageSeed": "delucia", "readTime": 7, "isSample": true
+  },
+  {
+    "id": "john-a-daly-engineer-educator", "slug": "john-a-daly-engineer-and-educator",
+    "title": "John A. Daly: Engineer and Educator",
+    "summary": "An engineer-turned-educator whose personal collection of early teaching computers helped seed part of RICM's education-technology holdings.",
+    "storyType": "Person", "era": "1990s", "topics": ["Education", "Rhode Island"],
+    "imageSeed": "daly", "readTime": 5, "isSample": true
+  },
+  {
+    "id": "birth-of-the-floppy-disk", "slug": "the-birth-of-the-floppy-disk",
+    "title": "The Birth of the Floppy Disk",
+    "summary": "How a simple idea — a flexible magnetic disk in a protective jacket — changed how the world moved data.",
+    "storyType": "Innovation", "era": "1970s", "topics": ["Data Storage", "Innovation"],
+    "imageSeed": "floppy", "readTime": 5, "isSample": false
+  },
+  {
+    "id": "how-punch-cards-worked", "slug": "how-punch-cards-worked",
+    "title": "How Punch Cards Worked",
+    "summary": "Simple holes, powerful ideas — the century-old technology that first put data in the palm of your hand.",
+    "storyType": "Innovation", "era": "1960s", "topics": ["Data Storage", "IBM"],
+    "imageSeed": "punchcard", "readTime": 6, "isSample": false
+  },
+  {
+    "id": "inside-digital-equipment-corp", "slug": "inside-digital-equipment-corp",
+    "title": "Inside Digital Equipment Corp.",
+    "summary": "Building better machines — and a company — that changed the world of computing from a garage-sized mill building in Maynard, Massachusetts.",
+    "storyType": "Company", "era": "1970s", "topics": ["DEC", "Innovation"],
+    "imageSeed": "dec-hq", "readTime": 8, "isSample": false
+  },
+  {
+    "id": "restoring-a-pdp-8", "slug": "restoring-a-pdp-8",
+    "title": "Restoring a PDP-8",
+    "summary": "Preserving a classic minicomputer for future generations, one volunteer work session at a time.",
+    "storyType": "Restoration", "era": "Restoration", "topics": ["Restorations", "DEC"],
+    "imageSeed": "restoration", "readTime": 6, "isSample": true
+  },
+  {
+    "id": "computing-in-rhode-island", "slug": "computing-in-rhode-island",
+    "title": "Computing in Rhode Island",
+    "summary": "The people, schools, and companies that built a Rhode Island technology hub — and where RICM's collection came from.",
+    "storyType": "Community", "era": "1970s", "topics": ["Rhode Island"],
+    "imageSeed": "ri-tech", "readTime": 7, "isSample": true
+  },
+  {
+    "id": "rise-of-home-computing", "slug": "the-rise-of-home-computing",
+    "title": "The Rise of Home Computing",
+    "summary": "When computers moved from labs into living rooms, and what changed once they got there.",
+    "storyType": "Innovation", "era": "1980s", "topics": ["Personal Computing"],
+    "imageSeed": "home-computing", "readTime": 6, "isSample": false
+  },
+  {
+    "id": "classroom-computer-revolution", "slug": "the-classroom-computer-revolution",
+    "title": "The Classroom Computer Revolution",
+    "summary": "How schools became one of the first, and largest, markets for personal computers.",
+    "storyType": "Innovation", "era": "1980s", "topics": ["Education", "Apple"],
+    "imageSeed": "classroom", "readTime": 6, "isSample": false
+  },
+  {
+    "id": "apple-and-education", "slug": "apple-and-education-a-lasting-connection",
+    "title": "Apple and Education: A Lasting Connection",
+    "summary": "The minicomputer revolution's quieter twin: the deliberate courtship of American schools.",
+    "storyType": "Company", "era": "1980s", "topics": ["Education", "Apple"],
+    "imageSeed": "apple-edu", "readTime": 4, "isSample": false
+  },
+  {
+    "id": "mainframes-to-pcs", "slug": "from-mainframes-to-pcs",
+    "title": "From Mainframes to PCs",
+    "summary": "A timeline of change across decades of innovation, from room-filling systems to a machine on every desk.",
+    "storyType": "Innovation", "era": "1960s–2000s", "topics": ["Mainframes", "Personal Computing"],
+    "imageSeed": "timeline", "readTime": 8, "isSample": false
+  },
+  {
+    "id": "women-who-changed-computing", "slug": "women-who-changed-computing",
+    "title": "Women Who Changed Computing",
+    "summary": "Trailblazers whose contributions opened doors across the history of computing.",
+    "storyType": "Community", "era": "All Eras", "topics": ["Women in Computing"],
+    "imageSeed": "women-computing", "readTime": 7, "isSample": false
+  },
+  {
+    "id": "birth-of-networking", "slug": "the-birth-of-networking",
+    "title": "The Birth of Networking",
+    "summary": "Connecting machines, sharing ideas, building the future — long before the public internet.",
+    "storyType": "Innovation", "era": "1970s", "topics": ["Networking"],
+    "imageSeed": "networking", "readTime": 6, "isSample": false
+  },
+  {
+    "id": "giving-hardware-a-second-life", "slug": "giving-hardware-a-second-life",
+    "title": "Giving Hardware a Second Life",
+    "summary": "Restoration stories from the workbench to the show floor.",
+    "storyType": "Restoration", "era": "Restoration", "topics": ["Restorations"],
+    "imageSeed": "second-life", "readTime": 7, "isSample": true
+  },
+  {
+    "id": "when-storage-filled-a-room", "slug": "when-storage-filled-a-room",
+    "title": "When Storage Filled a Room",
+    "summary": "Tapes, disks, and drives that kept the digital world spinning — and the floor space they used to need.",
+    "storyType": "Innovation", "era": "1970s", "topics": ["Data Storage"],
+    "imageSeed": "storage-room", "readTime": 6, "isSample": false
+  }
+]

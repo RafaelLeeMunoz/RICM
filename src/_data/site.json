@@ -1,0 +1,19 @@
+{
+  "name": "RICM",
+  "fullName": "Rhode Island Computer Museum",
+  "tagline": "Explore the past. Build the future.",
+  "url": "https://www.ricomputermuseum.org",
+  "defaultDescription": "RICM: Explore the past, build the future. The Rhode Island Computer Museum's collection, stories, STEM programs, and events.",
+  "address": {
+    "street": "1051 Ten Rod Road",
+    "cityStateZip": "North Kingstown, RI 02852",
+    "phone": "(401) 294-2688",
+    "phoneHref": "+14012942688",
+    "email": "info@ricomputermuseum.org"
+  },
+  "social": {
+    "facebook": "#",
+    "instagram": "#",
+    "youtube": "#"
+  }
+}

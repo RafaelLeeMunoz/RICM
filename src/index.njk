@@ -1,0 +1,157 @@
+---
+layout: base.njk
+title: "RICM: Explore the Past. Build the Future."
+description: "RICM: Explore the past, build the future. The Rhode Island Computer Museum's collection, stories, STEM programs, and events."
+---
+<section class="hero">
+  <div class="hero-media"><img src="{% placeholderImage "ricm-hero-main", 1600, 1100 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      <span class="eyebrow hero-eyebrow">Explore the past.</span>
+      <h1>Build the future.</h1>
+      <p class="lede">Discover the machines that changed our world, and inspire the innovators who will build what comes next.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-teal" href="/visit/">Plan Your Visit</a>
+        <a class="btn btn-outline" href="/explore/">Explore the Museum</a>
+      </div>
+    </div>
+    <div class="hero-art"><img src="{% placeholderImage "ricm-hero-art", 900, 700 %}" alt="A restored vintage computer terminal on display in the RICM galleries."></div>
+  </div>
+</section>
+
+<section class="info-strip"><div class="container">
+  <h2 class="visually-hidden">Museum at a Glance</h2>
+  <div class="info-block">
+    <span class="info-icon">{% icon "clock" %}</span>
+    <div><h3>Open Today</h3><div class="info-main">10:00 AM – 4:00 PM</div><a class="text-link info-sub" href="/visit/#hours">Hours &amp; Admission {% icon "arrowRight" %}</a></div>
+  </div>
+  <div class="info-block">
+    <span class="info-icon">{% icon "pin" %}</span>
+    <div><h3>Visiting RICM</h3><div class="info-main">North Kingstown, RI</div><a class="text-link info-sub" href="/visit/#directions">Directions &amp; Parking {% icon "arrowRight" %}</a></div>
+  </div>
+  {% set next = upcomingEvents[0] %}
+  <div class="info-block next-event-card">
+    <div class="date-chip"><div class="mo">{{ next.date | monthAbbr }}</div><div class="dd">{{ next.date | dayNum }}</div></div>
+    <div>
+      <h3>Next Event</h3>
+      <div class="info-main" style="font-size:var(--fs-sm);">{{ next.title }}</div>
+      <div class="info-sub">{{ next.audience }} · {{ next.time }}</div>
+      <a class="text-link" href="/events/{{ next.slug }}/">View Event {% icon "arrowRight" %}</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-white"><div class="container">
+  <span class="eyebrow">Start Here</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">What brings you to RICM?</h2>
+  <div class="start-grid">
+    {% set startCards = [
+      { label: "Visit", sub: "Plan your museum visit", ic: "home", href: "/visit/", seed: "start-visit" },
+      { label: "Explore", sub: "Discover the collection", ic: "search", href: "/explore/", seed: "start-explore" },
+      { label: "Learn", sub: "Find STEM programs", ic: "graduationCap", href: "/learn/", seed: "start-learn" },
+      { label: "Create", sub: "Make something", ic: "code", href: "/create/", seed: "start-create" },
+      { label: "Events", sub: "See what's happening", ic: "calendar", href: "/events/", seed: "start-events" },
+      { label: "Support", sub: "Help RICM grow", ic: "heart", href: "/support/", seed: "start-support" }
+    ] %}
+    {% for card in startCards %}
+    <a class="start-card" href="{{ card.href }}">
+      <img src="{% placeholderImage card.seed, 500, 620 %}" alt="" loading="lazy">
+      <div class="start-card-body">{% icon card.ic %}<strong>{{ card.label }}</strong><span>{{ card.sub }}</span></div>
+    </a>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <div class="featured-story">
+    <div class="fs-media"><img src="{% placeholderImage featuredStory.imageSeed, 1200, 750 %}" alt="" loading="lazy"></div>
+    <div class="fs-body">
+      <span class="eyebrow c-purple">Featured Story</span>
+      <h3>{{ featuredStory.title }}</h3>
+      <p class="desc">{{ featuredStory.summary }}</p>
+      <a class="btn btn-primary" href="/stories/{{ featuredStory.slug }}/">Read the Story {% icon "arrowRight" %}</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-white"><div class="container">
+  <div class="section-head">
+    <div class="section-title-group"><span class="eyebrow c-purple">Upcoming Events</span><h2>What's happening at RICM</h2></div>
+    <a class="text-link" href="/events/">View all events {% icon "arrowRight" %}</a>
+  </div>
+  <div class="event-row-list">
+    {% for ev in upcomingEvents.slice(0, 3) %}
+    <a class="event-row" href="/events/{{ ev.slug }}/">
+      <div class="date-chip"><div class="mo">{{ ev.date | monthAbbr }}</div><div class="dd">{{ ev.date | dayNum }}</div></div>
+      <div class="er-body">
+        <strong>{{ ev.title }}</strong>
+        <div class="er-meta"><span>{{ ev.audience }}</span><span>{{ ev.time }}</span></div>
+        <div class="er-desc">{{ ev.desc }}</div>
+      </div>
+      {% icon "chevronRight" %}
+    </a>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <div class="section-head">
+    <div class="section-title-group"><span class="eyebrow">Explore the Collection</span><h2>Browse by category</h2></div>
+    <a class="text-link" href="/collection/">View all objects {% icon "arrowRight" %}</a>
+  </div>
+  <div class="cat-grid">
+    {% for c in categories.slice(0, 7) %}
+    <a class="cat-tile" href="/collection/?category={{ c.id }}">{% icon c.icon %}<span>{{ c.label }}</span></a>
+    {% endfor %}
+    <a class="cat-tile" href="/collection/">{% icon "grid" %}<span>More Categories</span></a>
+  </div>
+</div></section>
+
+<section class="section-pad bg-navy"><div class="container">
+  <div class="two-col" style="align-items:center;">
+    <div>
+      <span class="eyebrow">Learn / STEM</span>
+      <h2 style="margin-top:.4em;">Hands-on programs that build tomorrow's builders.</h2>
+      <p class="lede" style="margin-top:var(--space-4);">Robotics, coding, engineering, game design, and digital creativity — for families, schools, and community groups of every experience level.</p>
+      <div class="hero-ctas"><a class="btn btn-teal" href="/learn/">Find a Program</a><a class="btn btn-outline" href="/programs/">Browse Program Catalog</a></div>
+    </div>
+    <div class="hero-art"><img src="{% placeholderImage "home-learn", 900, 700 %}" alt="Students collaborating on a robotics project at RICM."></div>
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-white"><div class="container">
+  <div class="two-col" style="align-items:center;">
+    <div class="hero-art" style="order:2;"><img src="{% placeholderImage "home-create", 900, 700 %}" alt="A student's digital art created through RICM's Create hub."></div>
+    <div>
+      <span class="eyebrow c-orange">Create</span>
+      <h2 style="margin-top:.4em;">Make. Design. Inspire.</h2>
+      <p class="lede" style="margin-top:var(--space-4);">Tales from the Hard Drive lives on inside Create — games, animation, music, and stories made by young creators across Rhode Island.</p>
+      <a class="btn btn-outline" style="margin-top:var(--space-5);" href="/create/">Explore Create {% icon "arrowRight" %}</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-warm"><div class="container">
+  <div class="cta-band">
+    <div><h2>Help RICM grow</h2><p>Donate, donate technology, or volunteer your time — every bit of support keeps this collection running and growing.</p></div>
+    <div class="cta-band-actions">
+      <a class="btn btn-teal" href="/support/#donate">Donate Now</a>
+      <a class="btn btn-outline" href="/support/#volunteer">Volunteer</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="newsletter-strip"><div class="container">
+  <div class="newsletter-copy">
+    <span class="icon-circle">{% icon "mail" %}</span>
+    <div><strong style="display:block;font-family:var(--f-display);font-size:1.05rem;">Stay in the loop</strong><span style="font-size:var(--fs-sm);color:#B9C6DA;">Sign up for news, events, and program updates.</span></div>
+  </div>
+  <form class="newsletter-form" id="newsletter-form" novalidate>
+    <div class="field">
+      <label for="newsletter-email" class="visually-hidden">Email address</label>
+      <input type="email" id="newsletter-email" class="input" placeholder="Your email address" required aria-describedby="newsletter-msg">
+      <div id="newsletter-msg"></div>
+    </div>
+    <button type="submit" class="btn btn-teal">Sign Up</button>
+  </form>
+</div></section>

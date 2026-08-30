@@ -1,0 +1,10 @@
+[
+  { "id": "personal-computers", "label": "Personal Computers", "icon": "home" },
+  { "id": "mainframes", "label": "Large Systems / Mainframes", "icon": "layers" },
+  { "id": "gaming", "label": "Gaming", "icon": "gaming" },
+  { "id": "storage", "label": "Data Storage", "icon": "disc" },
+  { "id": "calculators", "label": "Calculators", "icon": "calc" },
+  { "id": "electronics", "label": "Electronics", "icon": "chip" },
+  { "id": "peripherals", "label": "Peripherals", "icon": "keyboard" },
+  { "id": "documents-media", "label": "Documents & Media", "icon": "doc" }
+]

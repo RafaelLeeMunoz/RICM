@@ -1,0 +1,51 @@
+[
+  {
+    "id": "robotics-saturday", "slug": "robotics-saturday-sep", "title": "Robotics Saturday",
+    "date": "2026-09-12", "time": "10:00 AM – 12:00 PM", "audience": "Ages 8–12",
+    "location": "At RICM", "price": "Included with admission", "status": "upcoming",
+    "desc": "Hands-on robotics and coding fun for the whole family — drop in any time during the session.",
+    "imageSeed": "evt-robotics", "isSample": true
+  },
+  {
+    "id": "retro-gaming-night", "slug": "retro-gaming-night-sep", "title": "Retro Gaming Night",
+    "date": "2026-09-19", "time": "6:00 PM – 8:00 PM", "audience": "All Ages",
+    "location": "At RICM", "price": "$8 / $5 members", "status": "upcoming",
+    "desc": "Play classic games on vintage systems from our own collection, from Pong to the Sega Genesis.",
+    "imageSeed": "evt-gaming", "isSample": true
+  },
+  {
+    "id": "digital-creativity-workshop", "slug": "digital-creativity-workshop-sep", "title": "Digital Creativity Workshop",
+    "date": "2026-09-26", "time": "1:00 PM – 3:00 PM", "audience": "Ages 10–14",
+    "location": "At RICM", "price": "$15", "status": "upcoming",
+    "desc": "Animation, music, and storytelling activities inspired by Tales from the Hard Drive.",
+    "imageSeed": "evt-creativity", "isSample": true
+  },
+  {
+    "id": "vintage-computer-swap", "slug": "vintage-computer-swap-meet", "title": "Vintage Computer Swap Meet",
+    "date": "2026-10-10", "time": "9:00 AM – 1:00 PM", "audience": "All Ages",
+    "location": "At RICM", "price": "Free admission", "status": "upcoming",
+    "desc": "Bring, browse, and trade vintage hardware with fellow collectors in RICM's parking pavilion.",
+    "imageSeed": "evt-swap", "isSample": true
+  },
+  {
+    "id": "hour-of-code-family-night", "slug": "hour-of-code-family-night-2025", "title": "Hour of Code Family Night",
+    "date": "2025-12-09", "time": "5:30 PM – 7:30 PM", "audience": "All Ages",
+    "location": "At RICM", "price": "Free", "status": "past",
+    "desc": "Families explored beginner coding activities together as part of the national Hour of Code initiative.",
+    "imageSeed": "evt-hourofcode", "isSample": true
+  },
+  {
+    "id": "vintage-computer-faire-2025", "slug": "vintage-computer-faire-2025", "title": "Vintage Computer Faire",
+    "date": "2025-06-14", "time": "10:00 AM – 4:00 PM", "audience": "All Ages",
+    "location": "At RICM", "price": "$10", "status": "past",
+    "desc": "Our annual gathering of collectors, restorers, and enthusiasts filled the museum floor with rare hardware.",
+    "imageSeed": "evt-faire", "isSample": true
+  },
+  {
+    "id": "retro-gaming-night-spring", "slug": "retro-gaming-night-2025-04", "title": "Retro Gaming Night",
+    "date": "2025-04-18", "time": "6:00 PM – 8:00 PM", "audience": "All Ages",
+    "location": "At RICM", "price": "$8 / $5 members", "status": "past",
+    "desc": "An earlier installment of our recurring Retro Gaming Night series.",
+    "imageSeed": "evt-gaming2", "isSample": true
+  }
+]

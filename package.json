@@ -1,0 +1,14 @@
+{
+  "name": "ricm-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rhode Island Computer Museum website — static site built with Eleventy",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "debug": "eleventy --serve --incremental"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
