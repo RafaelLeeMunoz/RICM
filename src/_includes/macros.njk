@@ -1,0 +1,20 @@
+{# Shared template helpers — the Nunjucks equivalent of site.html's small
+   shared render functions (breadcrumb(), etc., see CLAUDE.md). Import into
+   any page template with:
+     {% import "macros.njk" as m %}
+     {{ m.breadcrumb([["Home", "/"], ["Visit", "/visit/"]]) }}
+   The LAST item in the trail is rendered as the current page (plain text,
+   aria-current="page"), matching site.html's breadcrumb() behavior — its
+   href is never used. #}
+
+{% macro breadcrumb(trail, onLight) %}
+<nav class="breadcrumb" data-on="{{ 'light' if onLight else 'dark' }}" aria-label="Breadcrumb"><ol>
+  {% for item in trail %}
+  {% if not loop.last %}
+  <li><a href="{{ item[1] }}">{{ item[0] }}</a>{% icon "chevronRight" %}</li>
+  {% else %}
+  <li aria-current="page">{{ item[0] }}</li>
+  {% endif %}
+  {% endfor %}
+</ol></nav>
+{% endmacro %}

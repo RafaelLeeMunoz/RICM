@@ -106,17 +106,32 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home only
+### What's actually migrated so far: Home and Visit
 
-Every other route from site.html's router table (`/visit`, `/explore`, `/collection`,
+Every other route from site.html's router table (`/explore`, `/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`, `/learn`,
 `/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
 `/about`, `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home
-page point at real future paths (`/visit/`, `/learn/`, etc.) that will 404 until each page gets
-its own migration pass, same shape as this one. Follow the same pattern per page: read the
-matching `pageXxx()` function in `site.html`, port its markup into a new `.njk` template, add any
-data it needs to `_data/` (with full fields this time, not the trimmed set below), wire real nav
-routes.
+page point at real future paths (`/learn/`, etc.) that will 404 until each page gets its own
+migration pass, same shape as these two. Follow the same pattern per page: read the matching
+`pageXxx()` function in `site.html`, port its markup into a new `.njk` template, add any data it
+needs to `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Visit** (`src/visit.njk`) was migrated second, as the simplest remaining page (no content
+collection dependency — every list on it, hours/prices/quick-facts/accessibility items/FAQs, is
+page-local content, not shared data). Two small pieces of new shared infrastructure came out of
+it, both reusable by every future page migration:
+- **`src/_includes/macros.njk`** — a `breadcrumb(trail, onLight)` Nunjucks macro, ported from
+  site.html's own `breadcrumb()` render function. The trail's last item is always plain text
+  (`aria-current="page"`), matching the original's behavior exactly. Import with
+  `{% import "macros.njk" as m %}`, call with `{{ m.breadcrumb([["Home","/"], ["Visit","/visit/"]]) }}`.
+  Add future shared render-helpers (site.html has several: `artifactCard`, `storyCard`,
+  `programCard`, `eventCard`, etc.) to this same file as they're needed, not one macro file per
+  page.
+- **`main.js` gained a generic FAQ-accordion handler** (any `.faq-q`/`.faq-a` pair, wired once at
+  page load) — ported from site.html's `wireFaqs(root)`, but global now instead of scoped to a
+  per-render `root` element, since there's no per-page render lifecycle left to hook into (pages
+  are real static files). Works for any future page that reuses the same `.faq-item` markup.
 
 ### Known gaps / deliberate simplifications, flagged so they're not mistaken for the final shape
 
@@ -182,3 +197,14 @@ again in this project, rather than assuming content failed to render.
 all; installed via `winget install --id OpenJS.NodeJS.LTS` this session (LTS, v24) specifically so
 the build could be verified rather than shipped unverified. Whoever picks up the next page
 migration needs Node available the same way (or already will, if it's the same machine).
+
+**Visit page verified the same rigorous way**: real build (zero errors), output HTML inspected
+directly (correct title/canonical, breadcrumb macro rendering correctly with a nested `icon`
+shortcode call, all hours/price/quick-facts/accessibility/FAQ content present with zero
+`undefined`/`[object Object]` leaks), then loaded live via the dev server — screenshot confirmed
+the breadcrumb, active "Visit" nav underline, and hero CTAs render correctly (including the
+`.hero .btn-outline` fix applying here too, for free, since it's a shared style rule); `get_page_text`
+confirmed every section's real text; and the FAQ accordion's actual click behavior was exercised
+via a real `.click()` call, confirming `aria-expanded` flips and the answer's `hidden` attribute
+clears with the correct answer text revealed — a genuine interaction test, not just a static-HTML
+check.

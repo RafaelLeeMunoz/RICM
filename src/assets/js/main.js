@@ -101,4 +101,16 @@
       });
     }
   }
+
+  /* ---- FAQ accordions (any .faq-q / .faq-a pair, ported from site.html's
+     wireFaqs — global now instead of per-page-render, since pages are real
+     static files and there's no render lifecycle left to hook into) ---- */
+  document.querySelectorAll(".faq-q").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      var target = document.getElementById(btn.getAttribute("aria-controls"));
+      if (target) target.hidden = open;
+    });
+  });
 })();

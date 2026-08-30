@@ -1,0 +1,117 @@
+---
+layout: base.njk
+title: "Plan Your Visit — RICM"
+---
+{% import "macros.njk" as m %}
+<section class="hero compact">
+  <div class="hero-media"><img src="{% placeholderImage "visit-hero", 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Visit", "/visit/"]]) }}
+      <span class="eyebrow hero-eyebrow">Visit</span>
+      <h1>Plan Your Visit</h1>
+      <p class="lede">Everything you need for a great trip to RICM — hours, admission, directions, accessibility, and what to expect once you're here.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-teal" href="#hours">Hours &amp; Admission</a>
+        <a class="btn btn-outline" href="#directions">Directions &amp; Parking</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white" id="hours"><div class="container">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow">Hours &amp; Admission</span>
+      <h2 style="margin-top:.4em;">When to visit</h2>
+      <div style="margin-top:var(--space-6);display:flex;flex-direction:column;gap:.1em;">
+        {% set hoursRows = [
+          { day: "Wednesday – Friday", hours: "Closed" },
+          { day: "Saturday", hours: "10:00 AM – 4:00 PM" },
+          { day: "Sunday", hours: "12:00 PM – 4:00 PM" },
+          { day: "Monday – Tuesday", hours: "Closed" }
+        ] %}
+        {% for row in hoursRows %}
+        <div class="glance-row"><span style="font-weight:600;color:var(--navy);">{{ row.day }}</span><span style="font-family:var(--f-mono);">{{ row.hours }}</span></div>
+        {% endfor %}
+      </div>
+      <div class="stat-row" style="margin-top:var(--space-6);">
+        <div class="stat-item"><div class="num">$8</div><div class="lbl">Adult admission</div></div>
+        <div class="stat-item"><div class="num">$5</div><div class="lbl">Child / Student</div></div>
+        <div class="stat-item"><div class="num">Free</div><div class="lbl">Members &amp; under 5</div></div>
+        <div class="stat-item"><div class="num">Free</div><div class="lbl">Free parking</div></div>
+      </div>
+    </div>
+    <div class="quickfacts">
+      <h3 style="margin-bottom:1em;">What You'll See</h3>
+      <ul style="display:flex;flex-direction:column;gap:.8em;">
+        {% set whatYoullSee = [
+          "Personal computers, mainframes, and gaming systems on display",
+          "Hands-on exhibits and running vintage machines",
+          "Rotating Digital Exhibits, starting with Evolution of Data Storage",
+          "Restoration workshop viewing area"
+        ] %}
+        {% for item in whatYoullSee %}
+        <li style="display:flex;gap:.6em;font-size:var(--fs-sm);">{% icon "check" %}<span>{{ item }}</span></li>
+        {% endfor %}
+      </ul>
+      <a class="btn btn-primary btn-block" style="margin-top:var(--space-5);" href="/explore/">Preview the Collection</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm" id="directions"><div class="container">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow">Directions &amp; Parking</span>
+      <h2 style="margin-top:.4em;">Getting here</h2>
+      <p class="lede" style="margin-top:var(--space-4);">RICM is located at 1051 Ten Rod Road, North Kingstown, RI 02852 — a short drive from Providence, Newport, and most of southern Rhode Island. Free on-site parking is available directly in front of the museum, including designated accessible spaces.</p>
+    </div>
+    <div style="aspect-ratio:4/3;border-radius:var(--radius-lg);overflow:hidden;background:var(--surface-2);"><img src="{% placeholderImage "visit-map", 900, 700 %}" alt="Illustrative map placeholder for RICM's North Kingstown, Rhode Island location." style="width:100%;height:100%;object-fit:cover;"></div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-white" id="group-visits"><div class="container">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow">Group Visits</span>
+      <h2 style="margin-top:.4em;">Bring a group to RICM</h2>
+      <p class="lede" style="margin-top:var(--space-4);">School groups, scout troops, homeschool co-ops, and community organizations can book a guided or self-directed group visit. Group rates apply for parties of 10 or more with advance booking.</p>
+      <a class="btn btn-outline" style="margin-top:var(--space-5);" href="/about/#contact">Request a Group Visit {% icon "arrowRight" %}</a>
+    </div>
+    <div id="accessibility">
+      <span class="eyebrow c-teal">Accessibility</span>
+      <h2 style="margin-top:.4em;">Accessibility at RICM</h2>
+      <ul style="margin-top:var(--space-4);display:flex;flex-direction:column;gap:.8em;">
+        {% set accessibilityItems = [
+          "Step-free entrance and fully wheelchair-accessible galleries",
+          "Accessible restrooms on the main floor",
+          "Designated accessible parking near the entrance",
+          "Sensory-friendly hours available by request — contact us to arrange a visit"
+        ] %}
+        {% for item in accessibilityItems %}
+        <li style="display:flex;gap:.6em;font-size:var(--fs-sm);">{% icon "check" %}<span>{{ item }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <span class="eyebrow">Practical FAQs</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-4);">Good to know before you go</h2>
+  <div id="visit-faqs">
+    {% set faqs = [
+      { q: "Do I need to book tickets in advance?", a: "Walk-ins are always welcome. Advance booking is recommended for groups of 10 or more." },
+      { q: "Is RICM good for young children?", a: "Yes — many exhibits are hands-on, and our Explore the Collection and Retro Gaming events are especially popular with families." },
+      { q: "Is food available on-site?", a: "RICM does not have a café, but visitors are welcome to bring a snack for a break in our lobby seating area." },
+      { q: "How long should I plan to stay?", a: "Most visitors spend 1–2 hours; enthusiasts exploring the full collection and Digital Exhibits often stay longer." }
+    ] %}
+    {% for item in faqs %}
+    <div class="faq-item">
+      <button type="button" class="faq-q" aria-expanded="false" aria-controls="visit-faq-{{ loop.index0 }}">{{ item.q }} {% icon "close" %}</button>
+      <div class="faq-a" id="visit-faq-{{ loop.index0 }}" hidden>{{ item.a }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div></section>
