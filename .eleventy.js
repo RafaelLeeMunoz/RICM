@@ -70,6 +70,10 @@ function dayNum(iso) {
   const d = new Date(iso + "T00:00:00");
   return d.getDate();
 }
+function formatDate(iso) {
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -80,6 +84,10 @@ module.exports = function (eleventyConfig) {
   // D.STORIES.find(...)), just computed once at build time instead.
   eleventyConfig.addGlobalData("upcomingEvents", () =>
     EVENTS.filter((e) => e.status === "upcoming").sort((a, b) => a.date.localeCompare(b.date))
+  );
+  // Mirrors pageEvents({archive:true})'s D.EVENTS.filter/sort for the past-events list.
+  eleventyConfig.addGlobalData("pastEvents", () =>
+    EVENTS.filter((e) => e.status === "past").sort((a, b) => b.date.localeCompare(a.date))
   );
   eleventyConfig.addGlobalData("featuredStory", () =>
     STORIES.find((s) => s.id === "rise-of-home-computing")
@@ -103,6 +111,7 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addFilter("monthAbbr", monthAbbr);
   eleventyConfig.addFilter("dayNum", dayNum);
+  eleventyConfig.addFilter("formatDate", formatDate);
   // Ported from site.html's LOCATION_LABEL(id) helper.
   eleventyConfig.addFilter("locationLabel", function (id) {
     const l = LOCATIONS.find((x) => x.id === id);

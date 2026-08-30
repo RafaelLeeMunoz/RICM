@@ -52,6 +52,38 @@
 </a>
 {% endmacro %}
 
+{# Ported from site.html's eventCard(ev). #}
+{% macro eventCard(ev) %}
+<a class="obj-card" href="/events/{{ ev.slug }}/">
+  <div class="thumb-wrap">
+    <img src="{% placeholderImage ev.imageSeed, 1000, 650 %}" alt="" loading="lazy">
+    <div class="thumb-badges">{% if ev.status == "past" %}<span class="tag" style="background:#fff;color:#33383F;">Past Event</span>{% endif %}</div>
+  </div>
+  <div class="obj-card-body">
+    <div class="obj-meta"><span>{% icon "calendar" %} {{ ev.date | formatDate }}</span><span>{% icon "clock" %} {{ ev.time }}</span></div>
+    <h3>{{ ev.title }}</h3>
+    <div class="obj-meta"><span>{{ ev.audience }}</span><span>{% icon "pin" %} {{ ev.location }}</span></div>
+    <p class="desc">{{ ev.desc }}</p>
+  </div>
+  <div class="obj-card-actions"><span class="text-link">{{ "View Recap" if ev.status == "past" else "View Event" }} {% icon "arrowRight" %}</span></div>
+</a>
+{% endmacro %}
+
+{# Ported from site.html's emptyState(title, msg, ctaLabel, ctaAction) -- the original's
+   ctaAction parameter was never actually wired to anything (every call site hardcoded its
+   click target via a separate after() handler); this version takes a real ctaHref instead,
+   so the CTA is a plain link and genuinely reusable with no extra JS needed. #}
+{% macro emptyState(title, msg, ctaLabel, ctaHref) %}
+<div class="state-block">
+  <div class="state-icon">{% icon "zoom" %}</div>
+  <h3>{{ title }}</h3>
+  <p>{{ msg }}</p>
+  {% if ctaLabel and ctaHref %}
+  <a class="btn btn-primary" href="{{ ctaHref }}">{{ ctaLabel }}</a>
+  {% endif %}
+</div>
+{% endmacro %}
+
 {# Ported from site.html's programCard(p, saved). `saved` is always rendered false
    here (there's no per-visitor knowledge at BUILD time) -- main.js corrects the
    save-button's aria-pressed/label/icon fill from localStorage once the page

@@ -1,0 +1,54 @@
+{# Shared body for both event-list pages (src/events.njk and
+   src/events-archive.njk) -- ported from site.html's pageEvents(params),
+   which used one function + an `isArchive` flag for both routes. Included
+   with `{% set isArchive = true/false %}` already set by the caller. #}
+{% import "macros.njk" as m %}
+
+<section class="hero short" data-surface="dark">
+  <div class="hero-media"><img src="{% placeholderImage "events-hero", 1600, 700 %}" alt=""></div>
+  <div class="container hero-inner split-narrow">
+    <div>
+      {% if isArchive %}
+      {{ m.breadcrumb([["Home", "/"], ["Events", "/events/"], ["Past Events", "#"]]) }}
+      {% else %}
+      {{ m.breadcrumb([["Home", "/"], ["Events", "/events/"]]) }}
+      {% endif %}
+      <span class="eyebrow hero-eyebrow c-purple">Events</span>
+      <h1>{{ "Past Events" if isArchive else "Upcoming Events" }}</h1>
+      <p class="lede">{{ "A record of what's already happened at RICM — browse recaps and past programming." if isArchive else "Public events, workshops, and drop-in activities happening at RICM." }}</p>
+      <div class="hero-ctas">
+        <a class="btn {{ 'btn-outline' if isArchive else 'btn-teal' }}" href="/events/">Upcoming</a>
+        <a class="btn {{ 'btn-teal' if isArchive else 'btn-outline' }}" href="/events/archive/">Past Events</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white"><div class="container">
+  <h2 class="visually-hidden">{{ "Past Events List" if isArchive else "Upcoming Events List" }}</h2>
+  {% set list = pastEvents if isArchive else upcomingEvents %}
+  {% if list.length %}
+  <div class="card-grid cols-3">
+    {% for ev in list %}
+    {{ m.eventCard(ev) }}
+    {% endfor %}
+  </div>
+  {% else %}
+  {% set emptyTitle = "No past events yet" if isArchive else "No upcoming events right now" %}
+  {% set emptyMsg = "Check back after RICM's next public event." if isArchive else "Check back soon, or browse our program catalog for scheduled sessions." %}
+  {% if isArchive %}
+  {{ m.emptyState(emptyTitle, emptyMsg) }}
+  {% else %}
+  {{ m.emptyState(emptyTitle, emptyMsg, "Browse Programs", "/programs/") }}
+  {% endif %}
+  {% endif %}
+</div></section>
+
+{% if not isArchive %}
+<section class="section-pad-sm bg-warm"><div class="container">
+  <div class="cta-band">
+    <div><h2>Don't see what you're looking for?</h2><p>Browse our full program catalog for scheduled classes, camps, and workshops.</p></div>
+    <div class="cta-band-actions"><a class="btn btn-teal" href="/programs/">Browse Programs</a></div>
+  </div>
+</div></section>
+{% endif %}

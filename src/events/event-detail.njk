@@ -1,0 +1,41 @@
+---
+layout: base.njk
+pagination:
+  data: events
+  size: 1
+  alias: event
+permalink: "/events/{{ event.slug }}/"
+eleventyComputed:
+  title: "{{ event.title }} — RICM Events"
+  description: "{{ event.desc }}"
+---
+{% import "macros.njk" as m %}
+<section class="hero" data-surface="dark">
+  <div class="hero-media"><img src="{% placeholderImage event.imageSeed, 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner split-narrow">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Events", "/events/archive/" if event.status == "past" else "/events/"], [event.title, "#"]]) }}
+      <span class="eyebrow hero-eyebrow c-purple">{{ "Past Event" if event.status == "past" else "Upcoming Event" }}</span>
+      <h1>{{ event.title }}</h1>
+      <p class="lede">{{ event.desc }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white"><div class="container">
+  <div class="two-col">
+    <div class="measure"><p style="font-size:var(--fs-md);color:var(--slate);">{{ event.desc }} This event is open to {{ event.audience | lower }} and takes place at RICM's North Kingstown location.</p></div>
+    <div class="quickfacts">
+      <div class="qf-row">{% icon "calendar" %}<div><div class="qf-k">Date</div><div class="qf-v">{{ event.date | formatDate }}</div></div></div>
+      <div class="qf-row">{% icon "clock" %}<div><div class="qf-k">Time</div><div class="qf-v">{{ event.time }}</div></div></div>
+      <div class="qf-row">{% icon "pin" %}<div><div class="qf-k">Location</div><div class="qf-v">{{ event.location }}</div></div></div>
+      <div class="qf-row">{% icon "users" %}<div><div class="qf-k">Audience</div><div class="qf-v">{{ event.audience }}</div></div></div>
+      <div class="qf-row">{% icon "ticket" %}<div><div class="qf-k">Price</div><div class="qf-v">{{ event.price }}</div></div></div>
+      {% if event.status != "past" %}
+      <div class="qf-actions"><a class="btn btn-primary" href="/visit/">Plan to Attend</a></div>
+      {% else %}
+      <div class="qf-actions"><span class="proto-badge">{% icon "archive" %} Archived event</span></div>
+      {% endif %}
+    </div>
+  </div>
+</div></section>

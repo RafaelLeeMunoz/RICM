@@ -106,16 +106,58 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, Explore, About, Learn, Create, and Support
+### What's actually migrated so far: Home, Visit, Explore, About, Learn, Create, Support, and Events
 
 Every other route from site.html's router table (`/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`,
-`/programs`, `/programs/:slug`, `/events`, `/events/archive`, `/events/:slug`,
-`/search`) is **not built yet** — those links in the new nav/footer/Home page point
-at real future paths (`/programs/`, etc.) that will 404 until each page gets its own migration
-pass, same shape as these seven. Follow the same pattern per page: read the matching `pageXxx()`
-function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
-`_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+`/programs`, `/programs/:slug`, `/search`) is **not built yet** — those links in the new
+nav/footer/Home page point at real future paths (`/programs/`, etc.) that will 404 until each
+page gets its own migration pass, same shape as these eight. Follow the same pattern per page:
+read the matching `pageXxx()` function in `site.html`, port its markup into a new `.njk`
+template, add any data it needs to `_data/` (with full fields this time, not the trimmed set
+below), wire real nav routes.
+
+**Events** (`src/events.njk` + `src/events-archive.njk` + `src/events/event-detail.njk`) was
+migrated eighth — three real routes at once (`/events/`, `/events/archive/`, and one real
+`/events/<slug>/` page per event), since a working events section genuinely needs all three
+together. This is the **first page in the migration to need Eleventy's pagination feature** —
+a real new pattern worth understanding before touching Collection/Stories/Programs, which will
+all need the exact same technique for their own `:slug` detail routes:
+
+- **`src/events/event-detail.njk`** has `pagination: { data: events, size: 1, alias: event }`
+  in its front matter, plus `permalink: "/events/{{ event.slug }}/"` — Eleventy generates one
+  real output file per array entry in `events.json` automatically (confirmed live: the build
+  wrote exactly 7 files, one per event, each at its own real slug URL). Per-event `title`/
+  `description` needed `eleventyComputed` specifically — plain front-matter values are NOT
+  re-evaluated per pagination item by default in Eleventy, only values listed under
+  `eleventyComputed` get access to the current `event` at render time.
+  - **A real structural improvement, not just a port**: site.html's `pageEventDetail` had to
+    manually check `if(!ev) return R.page404(...)` for an unknown slug, since its router could
+    be asked to render ANY string. That whole check is now categorically impossible to need —
+    every real event genuinely has a real page, and any other slug simply has no matching file
+    at all, which is a real 404 from the static host itself. A better guarantee than the
+    original's runtime check, for free, not something the migration had to build.
+- **`pageEvents(params)`'s single function handling both `/events` and `/events/archive` via an
+  `isArchive` flag** became **`src/_includes/eventsListBody.njk`** — a shared, non-page partial
+  included by two thin page templates (`events.njk` sets `{% set isArchive = false %}`,
+  `events-archive.njk` sets `true` and has an explicit `permalink: /events/archive/` since its
+  filename wouldn't produce that path on its own). `{% include %}` inherits the caller's
+  context in Nunjucks, so the one `isArchive` variable set by each thin wrapper is all the
+  partial needs.
+- New **`pastEvents`** global data (`.eleventy.js`) alongside the existing `upcomingEvents`,
+  and a new **`formatDate` filter** (ported from site.html's `formatDate`, a fuller "Sep 12,
+  2026" format — distinct from the existing `monthAbbr`/`dayNum` filters used for the compact
+  date-chip display).
+- New macros: **`eventCard(ev)`** (straight port) and **`emptyState(title, msg, ctaLabel,
+  ctaHref)`** — the latter is a deliberate small improvement over the original's
+  `emptyState(title, msg, ctaLabel, ctaAction)`, whose `ctaAction` parameter was never actually
+  wired to anything in site.html (every real call site hardcoded its click target via a
+  separate `after()` handler instead). The ported version takes a real `ctaHref` and renders a
+  plain link — genuinely reusable with zero extra JS, fixing the dead-parameter design smell
+  rather than reproducing it. (Not exercised by real content yet: both event lists always have
+  at least one item with the current sample data, so this macro's empty-state branch is
+  correct-but-unverified-by-real-data until a future page's filter UI can actually produce zero
+  results.)
 
 **Support** (`src/support.njk`) was migrated seventh — entirely page-local content, no new
 `_data/` files, same shape as Visit. Its 6 "ways to give" tiles and the sponsorship CTA are
@@ -397,3 +439,17 @@ was inserted right after it, the `#a11y-announcer` region received the correct a
 naming the right tile ("Donate"), and — clicking it again afterward — no second confirmation
 paragraph was added, confirming the `{ once: true }` listener behaves correctly. `get_page_text`
 confirmed every tile's real content.
+
+**Events verified via a real multi-page click-through, not just inspecting one output file**:
+the build itself is the first, strongest confirmation the pagination setup works — it wrote
+exactly 7 real files, one per event, each at the correct real slug URL, with zero errors. Output
+inspected directly for both an upcoming event (correct `formatDate` output, "Plan to Attend" CTA,
+breadcrumb pointing at `/events/`) and a past event (breadcrumb pointing at `/events/archive/`,
+"Archived event" badge instead of a CTA). List pages confirmed correct sort order both ways
+(4 upcoming ascending by date, 3 past descending). Live in the browser: screenshot confirmed
+`/events/` renders correctly; a real click on "Past Events" navigated to `/events/archive/` with
+the toggle buttons correctly swapping active state and the breadcrumb correctly growing a third
+segment; a real click on a past event's "View Recap" card navigated to its own real generated
+page (`/events/hour-of-code-family-night-2025/`) with `get_page_text` confirming every quickfact.
+The `emptyState` macro's actual rendering was not exercised (both lists always have real content
+right now) — flagged honestly per the note above, not asserted as tested when it wasn't.
