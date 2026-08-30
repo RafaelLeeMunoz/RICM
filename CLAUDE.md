@@ -106,16 +106,41 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, Explore, About, and Learn
+### What's actually migrated so far: Home, Visit, Explore, About, Learn, and Create
 
 Every other route from site.html's router table (`/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`,
-`/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
+`/programs`, `/programs/:slug`, `/events`, `/events/archive`, `/events/:slug`,
 `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home page point
 at real future paths (`/programs/`, etc.) that will 404 until each page gets its own migration
-pass, same shape as these five. Follow the same pattern per page: read the matching `pageXxx()`
+pass, same shape as these six. Follow the same pattern per page: read the matching `pageXxx()`
 function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
 `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Create** (`src/create.njk`) was migrated sixth. New data: **`src/_data/createResources.json`**
+(the 4 "Tales from the Hard Drive" media — Games/Animation/Music/Stories).
+
+**A second real pre-existing bug found and fixed, same class as the earlier `.hero .btn-outline`
+contrast issue**: site.html's `CREATE_RESOURCES` array stores each medium's icon as
+`"icon-gaming"`/`"icon-film"`/`"icon-music"`/`"icon-book"`, and the Create-hub tile renders it via
+`icon(c.icon)` directly — but the real `ICONS` registry's keys have no `"icon-"` prefix
+(`"gaming"`, `"film"`, ...), so `icon("icon-gaming")` always resolved to nothing in the original.
+The create-tile icons have genuinely never rendered in the prototype. Fixed the same way
+`categories.json`/`interests.json` already were: `createResources.json`'s `icon` field holds the
+real registry key directly. Confirmed both the bug's existence (by reading `icon()`'s lookup
+logic against the raw stored strings) and the fix (real SVGs present in the built output) before
+moving on.
+
+**A structural improvement over the original, not just a straight port**: the create-tile's link
+target changed from site.html's `href="#/create#${c.slug}"` (combining a route-hash AND a
+fragment-hash in one string — which could never have worked correctly under the hash router
+either, since `location.hash` can only hold one value) to a real same-page anchor,
+`href="#{{ c.slug }}-detail"`, pointing at that medium's own detail section
+(`id="{{ c.slug }}-detail"`) — the two-hash construct's evident intent, now actually reachable.
+
+**`data-scroll-link` needed no JS again**, same as Learn's `#learn-finder` link — plain anchors
+to `#create-hub` and each medium's `#create-hub` "back to hub" pills work directly off the
+existing global `scroll-behavior: smooth` CSS rule.
 
 **Learn** (`src/learn.njk`) was migrated fifth. New content collections, all full ports:
 **`src/_data/programs.json`** (all 10 STEM programs from site.html's `PROGRAMS` array, including
@@ -329,3 +354,20 @@ navigated to `/programs/?age=9-12,13-17&interest=robotics,coding` — the exact 
 format the future Program Catalog page will need to read. `get_page_text` confirmed every
 section's real content, including the `locationLabel` filter correctly resolving `"at-ricm"` to
 `"At RICM"` on every featured program card.
+
+**Create page verified**: real build (zero errors), output inspected directly (correct counts —
+4 create-tiles, 5 `.section-pad-sm.bg-white` sections — the About band plus one detail section
+per medium — 8 project-sample cards with correct titles) and, specifically, real `<svg>` icon
+markup actually present in every create-tile (confirming the `icon-gaming`→`gaming` fix took
+effect, not just that the build didn't error). Live in the browser: screenshot confirmed the
+hero/breadcrumb/active nav and both hero CTA buttons legible. `get_page_text` confirmed every
+section's real content end-to-end. **One thing NOT confirmed by direct observation**: the
+`scroll-behavior: smooth` anchor-jump itself — `window.scrollTo`/`scrollIntoView` calls through
+this session's browser-automation tool did not visibly move `window.scrollY` even when called
+directly (not just via a simulated link click), which is the same class of scroll-state
+flakiness this file's Explore-migration section doesn't mention but a much earlier session's
+"screenshot after scroll returns blank" finding already established as a tooling limitation, not
+a site bug — confirmed instead by checking `getComputedStyle(document.documentElement)
+.scrollBehavior === "smooth"` directly (it is) and that every anchor target `id` is unique and
+correctly named. Worth a real click-through by an actual person if this ever looks wrong in a
+real browser, same caveat as anywhere else in this project a tool couldn't fully close the loop.

@@ -1,0 +1,6 @@
+[
+  { "id": "games", "slug": "games", "title": "Games", "icon": "gaming", "summary": "Design, build, and share your own playable games.", "accent": "purple", "imageSeed": "create-games" },
+  { "id": "animation", "slug": "animation", "title": "Animation", "icon": "film", "summary": "Bring characters and stories to life frame by frame.", "accent": "orange", "imageSeed": "create-animation" },
+  { "id": "music", "slug": "music", "title": "Music", "icon": "music", "summary": "Compose, remix, and produce original tracks.", "accent": "teal", "imageSeed": "create-music" },
+  { "id": "stories", "slug": "stories", "title": "Stories", "icon": "book", "summary": "Write and illustrate your own interactive fiction.", "accent": "blue", "imageSeed": "create-stories" }
+]

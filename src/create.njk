@@ -1,0 +1,84 @@
+---
+layout: base.njk
+title: "Create — RICM"
+---
+{% import "macros.njk" as m %}
+<section class="hero" data-surface="dark">
+  <div class="hero-media"><img src="{% placeholderImage "create-hero", 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Create", "/create/"]]) }}
+      <span class="eyebrow hero-eyebrow c-orange">Create</span>
+      <h1>Make. Design. Inspire.</h1>
+      <p class="lede">Home to Tales from the Hard Drive — RICM's creative-technology initiative for games, animation, music, and stories made by young creators.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-teal" href="#create-hub">Start Creating</a>
+        <a class="btn btn-outline" href="/learn/">Find a Related Program</a>
+      </div>
+    </div>
+    <div class="hero-art"><img src="{% placeholderImage "create-hero-art", 900, 700 %}" alt="A student's animation project displayed on a monitor."></div>
+  </div>
+</section>
+
+<section class="section-pad-sm bg-white" id="about"><div class="container">
+  <div class="two-col" style="align-items:center;">
+    <div>
+      <span class="eyebrow c-orange">About Tales from the Hard Drive</span>
+      <h2 style="margin-top:.4em;">A creative initiative, not a separate site</h2>
+      <p class="lede" style="margin-top:var(--space-4);">Tales from the Hard Drive began as its own community for young creators — it now lives inside Create as a recognizable, branded initiative within the single RICM experience.</p>
+    </div>
+    <div class="hero-art"><img src="{% placeholderImage "tales-brand", 900, 700 %}" alt=""></div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-warm" id="create-hub"><div class="container">
+  <span class="eyebrow">Choose a Medium</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">What do you want to make?</h2>
+  <div class="create-grid">
+    {% for c in createResources %}
+    <a class="create-tile" href="#{{ c.slug }}-detail" id="{{ c.slug }}">
+      <img src="{% placeholderImage c.imageSeed, 900, 1000 %}" alt="">
+      <div class="ct-body">{% icon c.icon %}<strong>{{ c.title }}</strong><span>{{ c.summary }}</span></div>
+    </a>
+    {% endfor %}
+  </div>
+</div></section>
+
+{% for c in createResources %}
+<section class="section-pad-sm bg-white" id="{{ c.slug }}-detail"><div class="container">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow c-orange">{{ c.title }}</span>
+      <h2 style="margin-top:.4em;margin-bottom:var(--space-4);">Explore {{ c.title }}</h2>
+      <p class="lede">Tutorials, example projects, and open creative challenges for {{ c.title | lower }} — suitable for beginners through experienced young creators.</p>
+      <div style="margin-top:var(--space-5);display:flex;gap:.6em;flex-wrap:wrap;">
+        <a class="pill" href="#create-hub">{% icon "book" %} Tutorials</a>
+        <a class="pill" href="#create-hub">{% icon "target" %} Challenges</a>
+        <a class="pill" href="#create-hub">{% icon "users" %} Community Creations</a>
+      </div>
+    </div>
+    <div class="card-grid cols-2">
+      {% for i in [1, 2] %}
+      <div class="obj-card">
+        <div class="thumb-wrap"><img src="{% placeholderImage c.slug ~ '-work-' ~ i, 500, 380 %}" alt=""></div>
+        <div class="obj-card-body">
+          <span class="tag tag-orange">Student Creation</span>
+          <h3 style="margin-top:.3em;font-size:var(--fs-md);">{{ c.title }} Project {{ i }}</h3>
+          <p class="desc">A representative sample of student work in this medium.</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div></section>
+{% endfor %}
+
+<section class="section-pad bg-navy"><div class="container">
+  <div class="cta-band">
+    <div><h2>Have a program in mind?</h2><p>Pair a Create session with a hands-on Learn program for a full day of building and making.</p></div>
+    <div class="cta-band-actions">
+      <a class="btn btn-teal" href="/programs/">Browse Programs</a>
+      <a class="btn btn-outline" href="/learn/">Explore Learn</a>
+    </div>
+  </div>
+</div></section>
