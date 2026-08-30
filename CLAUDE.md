@@ -106,16 +106,33 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, Explore, About, Learn, and Create
+### What's actually migrated so far: Home, Visit, Explore, About, Learn, Create, and Support
 
 Every other route from site.html's router table (`/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`,
 `/programs`, `/programs/:slug`, `/events`, `/events/archive`, `/events/:slug`,
-`/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home page point
+`/search`) is **not built yet** — those links in the new nav/footer/Home page point
 at real future paths (`/programs/`, etc.) that will 404 until each page gets its own migration
-pass, same shape as these six. Follow the same pattern per page: read the matching `pageXxx()`
+pass, same shape as these seven. Follow the same pattern per page: read the matching `pageXxx()`
 function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
 `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Support** (`src/support.njk`) was migrated seventh — entirely page-local content, no new
+`_data/` files, same shape as Visit. Its 6 "ways to give" tiles and the sponsorship CTA are
+`{% set %}` arrays in the template itself.
+
+New shared behavior in `main.js`: a generic handler for any `[data-support-cta]` button, ported
+from site.html's `wireSupportModal` — announces via the existing `announce()` helper, inserts a
+"this is a prototype" confirmation paragraph right after the clicked button, and disables it,
+using the real `{ once: true }` listener option so a (now-disabled, but belt-and-suspenders)
+second click can never insert a duplicate confirmation. Two small, deliberate simplifications
+from the original, both because there's no clean way to reach the Eleventy-side icon shortcode
+from plain client JS: the confirmation paragraph drops the leading `icon("check")` checkmark
+glyph, and the button's own text label is inserted via plain string concatenation rather than
+`esc()`-style escaping — safe in practice since that label is always static English button copy
+(button text), never real user input, but worth knowing if a future edit ever makes it dynamic.
+`#support-modal-root` — a reserved-but-never-populated mount point in site.html itself, not
+something this pass under-built — was ported as an inert empty `<div>`, unchanged.
 
 **Create** (`src/create.njk`) was migrated sixth. New data: **`src/_data/createResources.json`**
 (the 4 "Tales from the Hard Drive" media — Games/Animation/Music/Stories).
@@ -371,3 +388,12 @@ a site bug — confirmed instead by checking `getComputedStyle(document.document
 .scrollBehavior === "smooth"` directly (it is) and that every anchor target `id` is unique and
 correctly named. Worth a real click-through by an actual person if this ever looks wrong in a
 real browser, same caveat as anywhere else in this project a tool couldn't fully close the loop.
+
+**Support page verified with a real click-through, not just static inspection**: real build
+(zero errors), correct counts (6 support tiles, 7 total `data-support-cta` buttons including the
+sponsorship CTA). Live in the browser: clicked the real "Donate Now" button and confirmed, in one
+sequence, that the button became genuinely `disabled`, the exact expected confirmation paragraph
+was inserted right after it, the `#a11y-announcer` region received the correct announcement text
+naming the right tile ("Donate"), and — clicking it again afterward — no second confirmation
+paragraph was added, confirming the `{ once: true }` listener behaves correctly. `get_page_text`
+confirmed every tile's real content.

@@ -1,0 +1,51 @@
+---
+layout: base.njk
+title: "Support RICM"
+---
+{% import "macros.njk" as m %}
+<section class="hero compact">
+  <div class="hero-media"><img src="{% placeholderImage "support-hero", 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Support", "/support/"]]) }}
+      <span class="eyebrow hero-eyebrow c-orange">Support RICM</span>
+      <h1>Help RICM grow</h1>
+      <p class="lede">Every visit, donation, and volunteer hour helps preserve computing history and inspire the next generation of builders.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white"><div class="container">
+  <span class="eyebrow c-orange">Get Involved</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Ways to give</h2>
+  <div class="card-grid cols-3">
+    {% set supportTiles = [
+      { id: "donate", ic: "heart", title: "Donate", desc: "Your gift keeps RICM's collection running, growing, and open to the public.", cta: "Donate Now" },
+      { id: "donate-tech", ic: "chip", title: "Donate Technology", desc: "Have vintage hardware, manuals, or media to donate? We'd love to talk.", cta: "Start a Donation Inquiry" },
+      { id: "volunteer", ic: "users", title: "Volunteer", desc: "Restoration, docent, education, and event volunteers keep RICM running.", cta: "Apply to Volunteer" },
+      { id: "membership", ic: "award", title: "Membership", desc: "Unlimited visits, member events, and a direct line of support to RICM.", cta: "Become a Member" },
+      { id: "partnership", ic: "compass", title: "Corporate Partnerships", desc: "Partner with RICM on sponsorship, STEM outreach, or employee volunteering.", cta: "Discuss a Partnership" },
+      { id: "props", ic: "film", title: "Vintage Technology & Props", desc: "Production companies and photographers can rent authentic vintage technology.", cta: "Request Props" }
+    ] %}
+    {% for t in supportTiles %}
+    <div class="support-tile" id="{{ t.id }}">
+      {% icon t.ic %}<h3>{{ t.title }}</h3><p>{{ t.desc }}</p>
+      <button type="button" class="btn btn-primary btn-block" data-support-cta="{{ t.id }}">{{ t.cta }}</button>
+    </div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm"><div class="container">
+  <div class="two-col" style="align-items:center;">
+    <div class="hero-art"><img src="{% placeholderImage "support-photo", 900, 700 %}" alt="RICM volunteers restoring a vintage minicomputer."></div>
+    <div>
+      <span class="eyebrow">Sponsor STEM Education</span>
+      <h2 style="margin-top:.4em;">Fund a seat, fund a season</h2>
+      <p class="lede" style="margin-top:var(--space-4);">Corporate and foundation sponsors can fund scholarships for families who couldn't otherwise afford our programs, or underwrite a full season of a specific program.</p>
+      <button type="button" class="btn btn-outline" style="margin-top:var(--space-5);" data-support-cta="sponsor">Discuss Sponsorship {% icon "arrowRight" %}</button>
+    </div>
+  </div>
+</div></section>
+
+<div id="support-modal-root"></div>

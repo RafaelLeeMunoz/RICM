@@ -185,6 +185,23 @@
     });
   });
 
+  /* ---- support CTAs (Support page), ported from site.html's wireSupportModal.
+     #support-modal-root exists as a reserved-but-unused mount point in
+     site.html too -- no real modal is wired up there yet, ported as-is. ---- */
+  document.querySelectorAll("[data-support-cta]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var heading = btn.closest(".support-tile, section");
+      var h3 = heading ? heading.querySelector("h3") : null;
+      announce("Thanks for your interest in " + (h3 ? h3.textContent : "supporting RICM") + ". A contact form would open here in the full site.");
+      var label = btn.textContent.trim();
+      btn.insertAdjacentHTML(
+        "afterend",
+        '<p style="margin-top:.75em;font-size:var(--fs-xs);color:var(--status-good);display:flex;gap:.4em;align-items:center;">Thanks — this prototype demonstrates the "' + label + '" action; the live site will open a request form here.</p>'
+      );
+      btn.disabled = true;
+    }, { once: true });
+  });
+
   /* ---- contact form (About page), ported from site.html's wireContactForm ---- */
   var contactForm = qs("#contact-form");
   if (contactForm) {
