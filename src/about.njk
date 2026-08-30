@@ -1,0 +1,106 @@
+---
+layout: base.njk
+title: "About RICM"
+---
+{% import "macros.njk" as m %}
+<section class="hero compact">
+  <div class="hero-media"><img src="{% placeholderImage "about-hero", 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["About", "/about/"]]) }}
+      <span class="eyebrow hero-eyebrow">About</span>
+      <h1>Our mission and our story</h1>
+      <p class="lede">RICM preserves the machines, ideas, and people that built the digital world — and works to inspire the next generation to keep building it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white" id="mission"><div class="container measure" style="margin-inline:0;max-width:none;">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow">Mission</span>
+      <h2 style="margin-top:.4em;">Explore the past. Build the future.</h2>
+      <p class="lede" style="margin-top:var(--space-4);">The Rhode Island Computer Museum collects, preserves, and interprets the history of computing technology, and uses that history to inspire hands-on STEM learning for visitors of every age.</p>
+    </div>
+    <div id="story">
+      <span class="eyebrow c-purple">Our Story</span>
+      <h2 style="margin-top:.4em;">How RICM began</h2>
+      <p class="lede" style="margin-top:var(--space-4);">RICM grew from a small group of Rhode Island collectors and educators determined to keep vintage hardware working, accessible, and out of landfills — and to use that hardware to teach the fundamentals still underneath today's technology.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm" id="team"><div class="container">
+  <span class="eyebrow">Team</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Meet the team</h2>
+  <div class="card-grid cols-4">
+    {% set team = [
+      { name: "Executive Director", role: "Museum leadership", seed: "team-1" },
+      { name: "Director of Collections", role: "Collections & restoration", seed: "team-2" },
+      { name: "Director of Education", role: "Programs & school partnerships", seed: "team-3" },
+      { name: "Volunteer Coordinator", role: "Community & volunteers", seed: "team-4" }
+    ] %}
+    {% for t in team %}
+    <div class="team-card">
+      <img src="{% placeholderImage t.seed, 300, 300 %}" alt="">
+      <h3 style="font-size:var(--fs-md);">{{ t.name }}</h3>
+      <p style="color:var(--ink-soft);font-size:var(--fs-sm);">{{ t.role }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad bg-white" id="partners"><div class="container">
+  <span class="eyebrow">Community Partners</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Organizations we work with</h2>
+  <div class="card-grid cols-4">
+    {% for o in organizations.slice(0, 4) %}
+    <div class="support-tile">{% icon "users" %}<h3>{{ o.name }}</h3><p>{{ o.summary }}</p></div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm" id="news"><div class="container">
+  <span class="eyebrow">News</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Recent news</h2>
+  <div class="card-grid cols-3">
+    {% set newsItems = [
+      { title: "RICM Restores DEC PDP-9 to Working Order", date: "Sep 2026", summary: "A volunteer-led restoration effort brings a rare 1966 minicomputer back to life." },
+      { title: "Robotics Foundations Expands to Two Sections", date: "Aug 2026", summary: "Growing demand for our flagship robotics program adds a second weekly session." },
+      { title: "RICM Launches the Evolution of Data Storage Exhibit", date: "Jul 2026", summary: "A new chapter-based digital exhibit traces storage media from punch cards to SSDs." }
+    ] %}
+    {% for item in newsItems %}
+    <div class="obj-card"><div class="obj-card-body"><span class="tag tag-navy">{{ item.date }}</span><h3 style="margin-top:.4em;">{{ item.title }}</h3><p class="desc">{{ item.summary }}</p></div></div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad bg-white" id="documents"><div class="container">
+  <div class="two-col">
+    <div>
+      <span class="eyebrow">Annual Reports</span>
+      <h2 style="margin-top:.4em;margin-bottom:var(--space-5);">Reports &amp; governance</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+        {% for doc in documents %}
+        <a class="doc-row" href="#" data-route-link="false"><span class="doc-icon">{% icon "doc" %}</span><span><strong style="display:block;color:var(--navy);">{{ doc.title }}</strong><span class="doc-meta">{{ doc.type }} · {{ doc.year }} · {{ doc.size }} · PDF (prototype link)</span></span></a>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="contact">
+      <span class="eyebrow c-teal">Contact</span>
+      <h2 style="margin-top:.4em;margin-bottom:var(--space-5);">Get in touch</h2>
+      <div class="quickfacts">
+        <div class="qf-row">{% icon "pin" %}<div><div class="qf-k">Address</div><div class="qf-v">{{ site.address.street }}, {{ site.address.cityStateZip }}</div></div></div>
+        <div class="qf-row">{% icon "phone" %}<div><div class="qf-k">Phone</div><div class="qf-v">{{ site.address.phone }}</div></div></div>
+        <div class="qf-row">{% icon "mail" %}<div><div class="qf-k">Email</div><div class="qf-v">{{ site.address.email }}</div></div></div>
+      </div>
+      <form id="contact-form" novalidate style="margin-top:var(--space-5);display:flex;flex-direction:column;gap:var(--space-4);">
+        <div class="field"><label for="contact-name">Name</label><input class="input" id="contact-name" required></div>
+        <div class="field"><label for="contact-email">Email</label><input class="input" type="email" id="contact-email" required></div>
+        <div class="field"><label for="contact-msg">Message</label><textarea class="textarea" id="contact-msg" required></textarea></div>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+        <div id="contact-form-msg" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</div></section>

@@ -1,0 +1,10 @@
+[
+  { "id": "apple", "name": "Apple Computer, Inc.", "type": "Manufacturer", "summary": "Founded in Cupertino, California in 1976; brought personal computing into homes, schools, and small businesses through the Apple II family and its successors." },
+  { "id": "ibm", "name": "International Business Machines (IBM)", "type": "Manufacturer", "summary": "A dominant force in business computing from punch-card tabulating equipment through mainframes, minicomputers, and the IBM PC that defined an industry standard." },
+  { "id": "dec", "name": "Digital Equipment Corporation (DEC)", "type": "Manufacturer", "summary": "Founded in Maynard, Massachusetts in 1957; DEC's PDP and VAX lines pioneered minicomputing and brought interactive computing out of the glass-walled data center." },
+  { "id": "commodore", "name": "Commodore Business Machines", "type": "Manufacturer", "summary": "Manufacturer of the best-selling Commodore 64 and the PET and Amiga lines, key to home computing's growth in the 1980s." },
+  { "id": "radio-shack", "name": "Tandy / RadioShack", "type": "Manufacturer", "summary": "Retailer and manufacturer whose TRS-80 line put an affordable, complete computer on shelves in ordinary shopping malls starting in 1977." },
+  { "id": "texas-instruments", "name": "Texas Instruments", "type": "Manufacturer", "summary": "Electronics manufacturer known for the TI-99/4A home computer and a long line of calculators used in classrooms nationwide." },
+  { "id": "atari", "name": "Atari, Inc.", "type": "Manufacturer", "summary": "Pioneer of the video game industry whose 2600 console and 8-bit computers brought interactive entertainment into millions of living rooms." },
+  { "id": "sinclair", "name": "Sinclair Research", "type": "Manufacturer", "summary": "British electronics company whose inexpensive ZX-series computers introduced millions of first-time users, especially in the UK and Europe, to home computing." }
+]

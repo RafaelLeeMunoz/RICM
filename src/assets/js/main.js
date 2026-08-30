@@ -12,6 +12,23 @@
 
   function qs(sel, root) { return (root || document).querySelector(sel); }
 
+  /* ---- screen-reader-only announcements (ported from site.html's announce()) ---- */
+  function announce(msg, assertive) {
+    var el = document.getElementById(assertive ? "a11y-announcer-assertive" : "a11y-announcer");
+    if (!el) return;
+    el.textContent = "";
+    window.setTimeout(function () { el.textContent = msg; }, 60);
+  }
+
+  /* ---- placeholder links (data-route-link="false") ---- */
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest('[data-route-link="false"]');
+    if (link) {
+      e.preventDefault();
+      announce("This link is a placeholder in the prototype and does not navigate.");
+    }
+  });
+
   /* ---- sticky header compress ---- */
   var header = qs("#site-header");
   var lastScrollState = false;
@@ -113,4 +130,35 @@
       if (target) target.hidden = open;
     });
   });
+
+  /* ---- contact form (About page), ported from site.html's wireContactForm ---- */
+  var contactForm = qs("#contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = qs("#contact-name", contactForm);
+      var email = qs("#contact-email", contactForm);
+      var msg = qs("#contact-msg", contactForm);
+      var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      var ok = true;
+      [
+        [name, name.value.trim().length > 0],
+        [email, emailValid],
+        [msg, msg.value.trim().length > 0]
+      ].forEach(function (pair) {
+        var field = pair[0], valid = pair[1];
+        field.closest(".field").classList.toggle("has-error", !valid);
+        if (!valid) ok = false;
+      });
+      var out = qs("#contact-form-msg");
+      if (!ok) {
+        out.innerHTML = '<span class="newsletter-msg err" style="color:var(--status-bad);">Please fill in every field with a valid email address.</span>';
+        announce("There is a problem with the contact form. Please review the highlighted fields.", true);
+        return;
+      }
+      out.innerHTML = '<span class="newsletter-msg ok" style="color:var(--status-good);">Thanks — RICM will be in touch soon.</span>';
+      announce("Your message has been sent.");
+      contactForm.reset();
+    });
+  }
 })();

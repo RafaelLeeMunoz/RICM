@@ -116,9 +116,9 @@
         <a href="mailto:{{ site.address.email }}">{{ site.address.email }}</a>
       </address>
       <div class="footer-social">
-        <a class="icon-btn" href="{{ site.social.facebook }}" aria-label="RICM on Facebook">{% icon "facebook" %}</a>
-        <a class="icon-btn" href="{{ site.social.instagram }}" aria-label="RICM on Instagram">{% icon "instagram" %}</a>
-        <a class="icon-btn" href="{{ site.social.youtube }}" aria-label="RICM on YouTube">{% icon "youtube" %}</a>
+        <a class="icon-btn" href="{{ site.social.facebook }}" data-route-link="false" aria-label="RICM on Facebook (demo link)">{% icon "facebook" %}</a>
+        <a class="icon-btn" href="{{ site.social.instagram }}" data-route-link="false" aria-label="RICM on Instagram (demo link)">{% icon "instagram" %}</a>
+        <a class="icon-btn" href="{{ site.social.youtube }}" data-route-link="false" aria-label="RICM on YouTube (demo link)">{% icon "youtube" %}</a>
       </div>
     </div>
     {% for item in nav %}

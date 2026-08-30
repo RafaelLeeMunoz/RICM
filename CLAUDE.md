@@ -106,16 +106,39 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, and Explore
+### What's actually migrated so far: Home, Visit, Explore, and About
 
 Every other route from site.html's router table (`/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`, `/learn`,
 `/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
-`/about`, `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home
-page point at real future paths (`/learn/`, etc.) that will 404 until each page gets its own
-migration pass, same shape as these three. Follow the same pattern per page: read the matching
-`pageXxx()` function in `site.html`, port its markup into a new `.njk` template, add any data it
-needs to `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+`/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home page point
+at real future paths (`/learn/`, etc.) that will 404 until each page gets its own migration pass,
+same shape as these four. Follow the same pattern per page: read the matching `pageXxx()`
+function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
+`_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**About** (`src/about.njk`) was migrated fourth. New content collections:
+**`src/_data/organizations.json`** (8 manufacturer/organization entries, full port) and
+**`src/_data/documents.json`** (6 governance/report documents, full port) — both ported from
+site.html's `ORGANIZATIONS`/`DOCUMENTS` arrays verbatim. Team members and news items stayed
+page-local `{% set %}` arrays in the template itself (same as Visit's hours/FAQs), since nothing
+else references them.
+
+Two more real pieces of shared behavior came out of this page, both added to `main.js`:
+- **A generic placeholder-link interceptor**: any element with `data-route-link="false"`
+  (the annual-report/document download rows here — no real PDFs exist yet — and, retrofitted at
+  the same time, the footer's social-media icons, which were pointing at bare `"#"` with no
+  interception at all until now) gets its click swallowed and announced through the existing
+  `#a11y-announcer` live region instead of silently jumping to the top of the page. Ported from
+  site.html's own boot-script click handler + `announce()` helper — sighted users see nothing
+  happen (matching the original exactly, verified by direct testing, not assumed), screen reader
+  users hear why.
+  - **Real design note preserved from the original, not obvious from the code alone**:
+    `announce()` is deliberately screen-reader-only — there is no visible toast anywhere in this
+    site for a placeholder-link click, by design, both in site.html and in this port.
+- **The contact form's real validation logic**, ported from site.html's `wireContactForm` —
+  per-field `.has-error` toggling, an email-format regex check, and a success/error message in
+  `#contact-form-msg`, paired with a real `announce()` call either way.
 
 **Explore** (`src/explore.njk`) was migrated third — the first page needing a shared content
 collection beyond what Home already had:
@@ -245,3 +268,14 @@ confirmed the active "Explore" nav underline, breadcrumb, and hero CTAs (includi
 `.hero .btn-outline` contrast fix applying automatically); `get_page_text` confirmed every
 section's real text end-to-end, including all 4 artifact cards' correct status badges
 (On Display / Archived).
+
+**About page verified with real interaction tests, not just static-HTML inspection**: real build
+(zero errors), output HTML inspected directly (correct title/canonical, exactly 4 team cards, 4
+partner tiles, 6 document rows, all with correct real data). Live in the browser: screenshot
+confirmed active nav/breadcrumb; then the contact form was actually exercised end-to-end —
+submitting empty correctly showed the error message and added `.has-error` to the name field,
+filling in valid data and resubmitting correctly showed the success message, cleared
+`.has-error`, and reset the form; a real click on a placeholder `.doc-row` link was confirmed to
+NOT change `location.href` (no navigation); and the screen-reader-only `#a11y-announcer` region
+was confirmed to actually receive the expected announcement text after that click — the full
+accessibility pipeline verified working, not just assumed from reading the code.
