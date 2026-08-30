@@ -18,3 +18,36 @@
   {% endfor %}
 </ol></nav>
 {% endmacro %}
+
+{# Ported from site.html's artifactStatusBadge() -- the small pill shown on an
+   artifact's thumbnail (On Display / In Restoration / Archived). #}
+{% macro artifactStatusBadge(status) %}
+  {% set badgeMap = {
+    "On Display": { cls: "is-ondisplay", ic: "checkCircle" },
+    "In Restoration": { cls: "is-limited", ic: "wrench" },
+    "Archived": { cls: "is-archive", ic: "archive" }
+  } %}
+  {% set s = badgeMap[status] or badgeMap["Archived"] %}
+  <span class="status-badge {{ s.cls }}">{% icon s.ic %}{{ status }}</span>
+{% endmacro %}
+
+{# Ported from site.html's artifactCard(a) -- the collection-grid card used on
+   Explore and (later) Collection list/detail pages. `a` is one entry from
+   _data/artifacts.json. #}
+{% macro artifactCard(a) %}
+<a class="obj-card" href="/collection/{{ a.slug }}/">
+  <div class="thumb-wrap">
+    <img src="{% placeholderImage a.imageSeeds[0], 900, 700 %}" alt="" loading="lazy">
+    <div class="thumb-badges">{{ artifactStatusBadge(a.status) }}</div>
+  </div>
+  <div class="obj-card-body">
+    <h3>{{ a.name }}</h3>
+    <div class="obj-meta">
+      <span>{% icon "calendar" %} {{ a.year }}</span>
+      <span>{{ a.manufacturer }}</span>
+    </div>
+    <p class="desc">{{ a.summary }}</p>
+  </div>
+  <div class="obj-card-actions"><span class="text-link">View Object {% icon "arrowRight" %}</span></div>
+</a>
+{% endmacro %}

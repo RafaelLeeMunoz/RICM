@@ -1,0 +1,174 @@
+[
+  {
+    "id": "apple-iic", "slug": "apple-iic", "name": "Apple IIc", "manufacturer": "Apple Computer, Inc.", "manufacturerId": "apple",
+    "year": 1984, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1984.0012",
+    "summary": "A compact, all-in-one Apple II designed for education and the home, and the machine many visitors remember from their own classroom.",
+    "significance": "The Apple IIc made serious computing power approachable for students, educators, and small businesses. Its built-in disk drive, integrated design, and full backward compatibility with the enormous Apple II software library helped define a generation of learning, creativity, and early desktop publishing.",
+    "specs": { "Processor": "65C02 @ 1.023 MHz", "Memory": "128 KB (expandable)", "Storage": "5.25\" 143 KB floppy drive (built-in)", "Display": "40/80-column text, 280×192 graphics", "Sound": "Built-in speaker, 1-bit", "OS": "Apple DOS 3.3 / ProDOS", "Ports": "2× serial, joystick, mouse, video" },
+    "imageSeeds": ["appleiic-1", "appleiic-2", "appleiic-3", "appleiic-4"],
+    "relatedObjects": ["apple-iie", "apple-iii", "commodore-64"],
+    "relatedStories": ["classroom-computer-revolution", "apple-and-education"],
+    "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "apple-iie", "slug": "apple-iie", "name": "Apple IIe", "manufacturer": "Apple Computer, Inc.", "manufacturerId": "apple",
+    "year": 1983, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1983.0031",
+    "summary": "The 'Enhanced' successor to the original Apple II, and the longest-lived model in the II family — sold for over a decade in schools nationwide.",
+    "significance": "Its expansion slots and durability made the IIe a mainstay of American classrooms well into the 1990s, long after flashier machines had come and gone.",
+    "specs": { "Processor": "6502 @ 1.023 MHz", "Memory": "64 KB (expandable to 128 KB)", "Storage": "5.25\" external floppy drive", "Display": "40/80-column text, 280×192 graphics", "Ports": "7 expansion slots" },
+    "imageSeeds": ["appleiie-1", "appleiie-2"],
+    "relatedObjects": ["apple-iic", "apple-lisa"], "relatedStories": ["classroom-computer-revolution"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "apple-lisa", "slug": "apple-lisa", "name": "Apple Lisa", "manufacturer": "Apple Computer, Inc.", "manufacturerId": "apple",
+    "year": 1983, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "Archived", "objectId": "RICM.1983.0009",
+    "summary": "One of the first commercial computers to popularize a graphical user interface and mouse — a commercial disappointment that reshaped the industry anyway.",
+    "significance": "At $9,995 the Lisa was too expensive to succeed commercially, but its windows-icons-mouse interface previewed the direction the entire industry would follow.",
+    "specs": { "Processor": "Motorola 68000 @ 5 MHz", "Memory": "1 MB", "Storage": "Twin 5.25\" 'Twiggy' drives / ProFile 5 MB hard disk", "Display": "720×364 monochrome" },
+    "imageSeeds": ["lisa-1", "lisa-2"],
+    "relatedObjects": ["apple-iie"], "relatedStories": ["rise-of-home-computing"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "ibm-5150", "slug": "ibm-5150", "name": "IBM 5150 Personal Computer", "manufacturer": "IBM", "manufacturerId": "ibm",
+    "year": 1981, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1981.0004",
+    "summary": "The machine that gave the 'PC' its name — IBM's entry into personal computing set the open-architecture standard the industry still follows.",
+    "significance": "By publishing the 5150's technical specifications, IBM enabled a vast ecosystem of compatible hardware and software — the 'IBM-compatible PC' — that continues to shape computing today.",
+    "specs": { "Processor": "Intel 8088 @ 4.77 MHz", "Memory": "16 KB (expandable to 256 KB)", "Storage": "Optional 5.25\" floppy drive(s)", "OS": "PC DOS 1.0", "Display": "CGA or MDA adapter" },
+    "imageSeeds": ["ibm5150-1", "ibm5150-2"],
+    "relatedObjects": ["ibm-1401"], "relatedStories": ["mainframes-to-pcs"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "ibm-1401", "slug": "ibm-1401", "name": "IBM 1401 Data Processing System", "manufacturer": "IBM", "manufacturerId": "ibm",
+    "year": 1959, "era": "pre-1960", "category": "mainframes", "categoryLabel": "Large System / Mainframe", "collection": "Large Systems",
+    "status": "On Display", "objectId": "RICM.1959.0002",
+    "summary": "One of the most widely used computers of the early 1960s, the 1401 brought affordable data processing to thousands of businesses.",
+    "significance": "Its transistorized design and low relative cost made electronic data processing practical for ordinary businesses for the first time, not just governments and giant corporations.",
+    "specs": { "Logic": "Discrete transistor (SMS cards)", "Memory": "1.4–16 KB core memory", "Input": "Punched card reader/punch", "Printer": "IBM 1403 chain printer" },
+    "imageSeeds": ["ibm1401-1", "ibm1401-2"],
+    "relatedObjects": ["ibm-5150"], "relatedStories": ["how-punch-cards-worked"], "relatedExhibit": "exhibits/data-storage/ibm-punch-card", "isSample": true
+  },
+  {
+    "id": "dec-pdp-8e-sid", "slug": "dec-pdp-8e-sid", "name": "DEC PDP-8/e (“SID”)", "manufacturer": "Digital Equipment Corporation", "manufacturerId": "dec",
+    "year": 1970, "era": "1970s", "category": "mainframes", "categoryLabel": "Large System / Mainframe", "collection": "Large Systems",
+    "status": "On Display", "objectId": "RICM.1970.0018",
+    "summary": "A workhorse 12-bit minicomputer nicknamed “SID” by RICM volunteers, restored and maintained in running condition.",
+    "significance": "The PDP-8 family made interactive computing affordable outside of giant institutional data centers, seeding the minicomputer industry that DEC would come to dominate.",
+    "specs": { "Logic": "12-bit minicomputer", "Memory": "4–32 KB core memory (upgradeable)", "Storage": "DECtape / paper tape", "Notes": "Restored to running condition by RICM volunteers" },
+    "imageSeeds": ["pdp8-1", "pdp8-2"],
+    "relatedObjects": ["dec-pdp-9"], "relatedStories": ["restoring-a-pdp-8"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "dec-pdp-9", "slug": "dec-pdp-9", "name": "DEC PDP-9", "manufacturer": "Digital Equipment Corporation", "manufacturerId": "dec",
+    "year": 1966, "era": "1960s", "category": "mainframes", "categoryLabel": "Large System / Mainframe", "collection": "Large Systems",
+    "status": "In Restoration", "objectId": "RICM.1966.0007",
+    "summary": "An 18-bit successor to the PDP-7, currently undergoing an ongoing volunteer restoration effort documented in RICM's restoration log.",
+    "significance": "Represents DEC's continued push toward interactive, real-time computing for laboratories and research institutions.",
+    "specs": { "Logic": "18-bit minicomputer", "Memory": "Core memory, expandable", "Storage": "DECtape" },
+    "imageSeeds": ["pdp9-1", "pdp9-2"],
+    "relatedObjects": ["dec-pdp-8e-sid"], "relatedStories": ["restoring-a-pdp-8"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "eagle-business-computer", "slug": "eagle-business-computer", "name": "Eagle Business Computer", "manufacturer": "Eagle Computer, Inc.", "manufacturerId": "eagle",
+    "year": 1982, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1982.0041",
+    "summary": "An early CP/M-based business computer from a short-lived but notable competitor in the pre-IBM-PC office-computing market.",
+    "significance": "Illustrates the crowded, fast-moving small-systems market that existed just before the IBM PC standardized the industry.",
+    "specs": { "Processor": "Zilog Z80 @ 4 MHz", "Memory": "64 KB", "Storage": "Dual 5.25\" floppy drives", "OS": "CP/M" },
+    "imageSeeds": ["eagle-1", "eagle-2"],
+    "relatedObjects": ["ibm-5150"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "digi-comp-1", "slug": "digi-comp-1", "name": "DIGI-COMP I", "manufacturer": "E.S.R., Inc.", "manufacturerId": "esr",
+    "year": 1963, "era": "1960s", "category": "electronics", "categoryLabel": "Electronics", "collection": "Special Interest",
+    "status": "On Display", "objectId": "RICM.1963.0003",
+    "summary": "A mechanical, plastic digital computer sold as an educational toy — no electricity required. Visitors flip its logic gates by hand.",
+    "significance": "One of the first devices to teach the general public — including children — the fundamentals of binary logic and digital computation, entirely through mechanical linkages.",
+    "specs": { "Logic": "3-bit mechanical binary logic", "Power": "None (fully mechanical)", "Notes": "Marketed directly to schools and hobbyists" },
+    "imageSeeds": ["digicomp-1", "digicomp-2"],
+    "relatedObjects": [], "relatedStories": ["how-punch-cards-worked"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "commodore-64", "slug": "commodore-64", "name": "Commodore 64", "manufacturer": "Commodore Business Machines", "manufacturerId": "commodore",
+    "year": 1982, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1982.0002",
+    "summary": "The best-selling single computer model of all time, prized for its sound and graphics chips as much as its low price.",
+    "significance": "With over 12 million units sold, the C64 introduced a generation to home computing, programming, and gaming simultaneously.",
+    "specs": { "Processor": "MOS 6510 @ 1.02 MHz", "Memory": "64 KB", "Graphics": "VIC-II", "Sound": "SID 6581 3-voice synth chip" },
+    "imageSeeds": ["c64-1", "c64-2"],
+    "relatedObjects": ["apple-iic", "atari-2600"], "relatedStories": ["rise-of-home-computing"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "trs-80", "slug": "trs-80-model-i", "name": "TRS-80 Model I", "manufacturer": "Tandy / RadioShack", "manufacturerId": "radio-shack",
+    "year": 1977, "era": "1970s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "On Display", "objectId": "RICM.1977.0006",
+    "summary": "Sold through thousands of ordinary RadioShack storefronts, the TRS-80 was many first-time buyers' introduction to owning a computer.",
+    "significance": "Alongside the Apple II and Commodore PET, the TRS-80 formed the '1977 Trinity' that launched the mass-market home computer industry.",
+    "specs": { "Processor": "Zilog Z80 @ 1.77 MHz", "Memory": "4 KB (expandable)", "Display": "64×16 text", "Storage": "Cassette tape" },
+    "imageSeeds": ["trs80-1", "trs80-2"],
+    "relatedObjects": ["commodore-64"], "relatedStories": ["rise-of-home-computing"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "atari-2600", "slug": "atari-2600", "name": "Atari 2600", "manufacturer": "Atari, Inc.", "manufacturerId": "atari",
+    "year": 1977, "era": "1970s", "category": "gaming", "categoryLabel": "Gaming", "collection": "Gaming",
+    "status": "On Display", "objectId": "RICM.1977.0019",
+    "summary": "The cartridge-based console that made video games a living-room fixture across America.",
+    "significance": "Its interchangeable-cartridge design created the model the entire games industry still follows.",
+    "specs": { "Processor": "MOS 6507 @ 1.19 MHz", "Memory": "128 bytes RAM", "Media": "ROM cartridge", "Video": "TIA chip, NTSC" },
+    "imageSeeds": ["atari2600-1", "atari2600-2"],
+    "relatedObjects": ["commodore-64"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "ti-99-4a", "slug": "ti-99-4a", "name": "TI-99/4A", "manufacturer": "Texas Instruments", "manufacturerId": "texas-instruments",
+    "year": 1981, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "Archived", "objectId": "RICM.1981.0027",
+    "summary": "A 16-bit home computer years ahead of most 8-bit competitors on paper, sold at a loss in a bruising price war with Commodore.",
+    "significance": "Its early 16-bit processor and speech-synthesis add-on made it a technically ambitious entrant in the early home-computer wars.",
+    "specs": { "Processor": "TMS9900 @ 3 MHz (16-bit)", "Memory": "16 KB", "Storage": "Cassette / cartridge" },
+    "imageSeeds": ["ti99-1", "ti99-2"],
+    "relatedObjects": ["commodore-64"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "hp-35", "slug": "hp-35", "name": "HP-35 Calculator", "manufacturer": "Hewlett-Packard", "manufacturerId": "hp",
+    "year": 1972, "era": "1970s", "category": "calculators", "categoryLabel": "Calculator", "collection": "Calculators",
+    "status": "On Display", "objectId": "RICM.1972.0011",
+    "summary": "The first handheld scientific calculator, retiring the slide rule in engineering programs almost overnight.",
+    "significance": "Its introduction is widely credited with ending the slide rule's century-long reign as the engineer's essential tool.",
+    "specs": { "Logic": "RPN scientific calculator", "Display": "LED, 15-digit", "Notes": "Nicknamed the ‘electronic slide rule’" },
+    "imageSeeds": ["hp35-1"],
+    "relatedObjects": ["digi-comp-1"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "xerox-alto", "slug": "xerox-alto", "name": "Xerox Alto", "manufacturer": "Xerox PARC", "manufacturerId": "xerox",
+    "year": 1973, "era": "1970s", "category": "personal-computers", "categoryLabel": "Personal Computer", "collection": "Personal Computing",
+    "status": "Archived", "objectId": "RICM.1973.0001",
+    "summary": "Never sold commercially, the Alto pioneered the graphical user interface, mouse, and Ethernet networking that would define computing for decades.",
+    "significance": "Nearly every desktop-computing convention in use today — windows, icons, a mouse pointer, WYSIWYG editing — traces to the Alto.",
+    "specs": { "Processor": "Custom bit-slice CPU", "Memory": "128–512 KB", "Display": "606×808 bitmap monochrome", "Network": "Ethernet (invented for the Alto)" },
+    "imageSeeds": ["alto-1"],
+    "relatedObjects": ["apple-lisa"], "relatedStories": ["rise-of-home-computing"], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "sinclair-zx81", "slug": "sinclair-zx81", "name": "Sinclair ZX81", "manufacturer": "Sinclair Research", "manufacturerId": "sinclair",
+    "year": 1981, "era": "1980s", "category": "personal-computers", "categoryLabel": "Personal Computer (International)", "collection": "International Personal Computers",
+    "status": "On Display", "objectId": "RICM.1981.0033",
+    "summary": "An ultra-low-cost British computer sold as a kit or assembled, credited with introducing an enormous number of UK households to computing.",
+    "significance": "Its touch-membrane keyboard and rock-bottom price made it one of the cheapest paths into home computing anywhere in the world.",
+    "specs": { "Processor": "Zilog Z80A @ 3.25 MHz", "Memory": "1 KB (expandable to 16 KB)", "Display": "32×24 text" },
+    "imageSeeds": ["zx81-1"],
+    "relatedObjects": ["trs-80"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  },
+  {
+    "id": "osborne-1", "slug": "osborne-1", "name": "Osborne 1", "manufacturer": "Osborne Computer Corporation", "manufacturerId": "osborne",
+    "year": 1981, "era": "1980s", "category": "personal-computers", "categoryLabel": "Portable Computer", "collection": "Laptops & Portables",
+    "status": "Archived", "objectId": "RICM.1981.0040",
+    "summary": "Widely considered the first commercially successful portable computer — 'luggable' rather than lightweight, at nearly 24 pounds.",
+    "significance": "It bundled a full software suite with the hardware, an early example of value pricing that reshaped how computers were sold.",
+    "specs": { "Processor": "Zilog Z80 @ 4 MHz", "Memory": "64 KB", "Display": "5\" built-in monitor", "Weight": "~23.5 lb" },
+    "imageSeeds": ["osborne-1"],
+    "relatedObjects": ["trs-80"], "relatedStories": [], "relatedExhibit": "", "isSample": true
+  }
+]

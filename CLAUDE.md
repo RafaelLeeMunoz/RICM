@@ -106,16 +106,43 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home and Visit
+### What's actually migrated so far: Home, Visit, and Explore
 
-Every other route from site.html's router table (`/explore`, `/collection`,
+Every other route from site.html's router table (`/collection`,
 `/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`, `/learn`,
 `/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
 `/about`, `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home
 page point at real future paths (`/learn/`, etc.) that will 404 until each page gets its own
-migration pass, same shape as these two. Follow the same pattern per page: read the matching
+migration pass, same shape as these three. Follow the same pattern per page: read the matching
 `pageXxx()` function in `site.html`, port its markup into a new `.njk` template, add any data it
 needs to `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Explore** (`src/explore.njk`) was migrated third — the first page needing a shared content
+collection beyond what Home already had:
+- **`src/_data/artifacts.json`** — all 18 artifacts from site.html's `ARTIFACTS` array, ported
+  with FULL fields this time (specs, significance, relatedObjects/relatedStories/relatedExhibit,
+  objectId — not trimmed the way `stories.json` was for Home), since this same data will be
+  reused by the Collection list/detail pages later and there was no reason to under-port it twice.
+  Each artifact's `images: [img(seed,...), ...]` array became `imageSeeds: [...]` (plain seed
+  strings), resolved through the `placeholderImage` shortcode at template time, same pattern as
+  every other image field.
+- **Two more macros in `macros.njk`**: `artifactStatusBadge(status)` and `artifactCard(a)`,
+  ported from site.html's functions of the same names — `artifactCard` calls
+  `artifactStatusBadge` internally, confirming macros can call other macros/shortcodes from the
+  same imported namespace without issue.
+- **A real Nunjucks limitation hit and worked around**: site.html's `pageExplore()` computes
+  `D.ARTIFACTS.find(a=>a.id==="apple-iic")` and `D.ARTIFACTS.filter(a=>a.id!=="apple-iic").slice(0,3)`
+  inline. Nunjucks has no syntax for an inline filter/find PREDICATE FUNCTION (no arrow functions
+  in template expressions), and a `{% set counter = counter + 1 %}` inside a `{% for %}` loop
+  does NOT reliably persist across iterations back out to the template (a well-known Jinja2/
+  Nunjucks scoping gotcha) — an early draft tried exactly that and would have silently either
+  errored or produced wrong results. Fixed the same way Home's `upcomingEvents`/`featuredStory`
+  already were: computed as global data in `.eleventy.js` (`featuredArtifact`,
+  `otherFeaturedArtifacts`) using real JS array methods, then just referenced directly in the
+  template. **General lesson for future migrations**: any `pageXxx()` in site.html that does real
+  `.filter()`/`.find()`/`.sort()`/counter-based array logic inline needs its own named global-data
+  function in `.eleventy.js` — don't try to reproduce that logic inside the Nunjucks template
+  itself.
 
 **Visit** (`src/visit.njk`) was migrated second, as the simplest remaining page (no content
 collection dependency — every list on it, hours/prices/quick-facts/accessibility items/FAQs, is
@@ -208,3 +235,13 @@ confirmed every section's real text; and the FAQ accordion's actual click behavi
 via a real `.click()` call, confirming `aria-expanded` flips and the answer's `hidden` attribute
 clears with the correct answer text revealed — a genuine interaction test, not just a static-HTML
 check.
+
+**Explore page verified the same way**: real build (zero errors), output HTML inspected directly
+(correct title/canonical, breadcrumb, all 4 start-here tiles, the Fraser Archives band, and
+exactly 4 artifact cards — the featured Apple IIc plus the next 3 non-Apple-IIc artifacts in
+array order, matching `D.ARTIFACTS.filter(...).slice(0,3)`'s real behavior — each with correct
+name/year/manufacturer/summary/status badge), then loaded live via the dev server: screenshot
+confirmed the active "Explore" nav underline, breadcrumb, and hero CTAs (including the shared
+`.hero .btn-outline` contrast fix applying automatically); `get_page_text` confirmed every
+section's real text end-to-end, including all 4 artifact cards' correct status badges
+(On Display / Archived).

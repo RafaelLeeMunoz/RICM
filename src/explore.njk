@@ -1,0 +1,59 @@
+---
+layout: base.njk
+title: "Explore — RICM"
+---
+{% import "macros.njk" as m %}
+<section class="hero compact">
+  <div class="hero-media"><img src="{% placeholderImage "explore-hero", 1600, 900 %}" alt=""></div>
+  <div class="container hero-inner">
+    <div>
+      {{ m.breadcrumb([["Home", "/"], ["Explore", "/explore/"]]) }}
+      <span class="eyebrow hero-eyebrow">Explore</span>
+      <h1>The people, ideas, and machines behind computing.</h1>
+      <p class="lede">Search, browse, and discover the artifacts, stories, and exhibits that trace computing's history — without artificial "Page XIV" depth.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-teal" href="/collection/">Search the Collection</a>
+        <a class="btn btn-outline" href="/stories/">Browse Stories</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-white"><div class="container">
+  <span class="eyebrow">Start Here</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Ways to explore</h2>
+  <div class="card-grid cols-4">
+    {% set exploreTiles = [
+      { title: "Explore the Collection", sub: "Search and browse artifacts by era, category, and maker.", ic: "compass", href: "/collection/" },
+      { title: "Stories & History", sub: "Read the people and ideas behind the machines.", ic: "book", href: "/stories/" },
+      { title: "Digital Exhibits", sub: "Immersive, chapter-based exhibits — starting with data storage.", ic: "layers", href: "/exhibits/data-storage/" },
+      { title: "Restorations", sub: "Follow volunteer restoration logs from bench to show floor.", ic: "wrench", href: "/collection/?category=mainframes" }
+    ] %}
+    {% for tile in exploreTiles %}
+    <a class="support-tile" href="{{ tile.href }}">{% icon tile.ic %}<h3>{{ tile.title }}</h3><p>{{ tile.sub }}</p><span class="text-link">Explore {% icon "arrowRight" %}</span></a>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section-pad-sm bg-warm" id="archives"><div class="container">
+  <div class="two-col" style="align-items:center;">
+    <div>
+      <span class="eyebrow">The Fraser Archives</span>
+      <h2 style="margin-top:.4em;">A deeper record</h2>
+      <p class="lede" style="margin-top:var(--space-4);">The Fraser Archives preserve historical documents, photographs, and organizational records too extensive for a single exhibit — from manufacturer catalogs to Rhode Island computing club newsletters.</p>
+      <a class="btn btn-outline" style="margin-top:var(--space-5);" href="/about/#documents">Browse the Document Library {% icon "arrowRight" %}</a>
+    </div>
+    <div class="hero-art"><img src="{% placeholderImage "fraser-archives", 900, 700 %}" alt=""></div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-white"><div class="container">
+  <span class="eyebrow">Featured Object</span>
+  <h2 style="margin-top:.4em;margin-bottom:var(--space-6);">Start with the Apple IIc</h2>
+  <div class="card-grid cols-4">
+    {{ m.artifactCard(featuredArtifact) }}
+    {% for a in otherFeaturedArtifacts %}
+    {{ m.artifactCard(a) }}
+    {% endfor %}
+  </div>
+</div></section>

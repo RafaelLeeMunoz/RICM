@@ -1,6 +1,7 @@
 const ICONS = require("./src/_data/icons.js");
 const EVENTS = require("./src/_data/events.json");
 const STORIES = require("./src/_data/stories.json");
+const ARTIFACTS = require("./src/_data/artifacts.json");
 
 /* ==========================================================================
    Placeholder photography generator — ported verbatim from site.html's
@@ -80,6 +81,16 @@ module.exports = function (eleventyConfig) {
   );
   eleventyConfig.addGlobalData("featuredStory", () =>
     STORIES.find((s) => s.id === "rise-of-home-computing")
+  );
+  // Mirrors pageExplore()'s `D.ARTIFACTS.find(...)` / `D.ARTIFACTS.filter(...).slice(0,3)` —
+  // computed here rather than in the template because Nunjucks has no way to author an
+  // inline filter/find predicate function, and a for-loop-scoped counter doesn't reliably
+  // persist across iterations the way plain JS array methods do.
+  eleventyConfig.addGlobalData("featuredArtifact", () =>
+    ARTIFACTS.find((a) => a.id === "apple-iic")
+  );
+  eleventyConfig.addGlobalData("otherFeaturedArtifacts", () =>
+    ARTIFACTS.filter((a) => a.id !== "apple-iic").slice(0, 3)
   );
 
   eleventyConfig.addShortcode("placeholderImage", placeholderImage);
