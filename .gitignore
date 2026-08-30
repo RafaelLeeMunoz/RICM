@@ -1,0 +1,14 @@
+# Reference/working assets kept locally, not tracked in git
+Base Website/
+Prototype Images/
+*.docx
+*.xlsx
+*.zip
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor/tooling
+.vscode/
+node_modules/
