@@ -51,3 +51,33 @@
   <div class="obj-card-actions"><span class="text-link">View Object {% icon "arrowRight" %}</span></div>
 </a>
 {% endmacro %}
+
+{# Ported from site.html's programCard(p, saved). `saved` is always rendered false
+   here (there's no per-visitor knowledge at BUILD time) -- main.js corrects the
+   save-button's aria-pressed/label/icon fill from localStorage once the page
+   loads in that specific visitor's browser. #}
+{% macro programCard(p) %}
+<div class="obj-card">
+  <a href="/programs/{{ p.slug }}/" style="text-decoration:none;color:inherit;">
+    <div class="thumb-wrap">
+      <img src="{% placeholderImage p.imageSeed, 1000, 700 %}" alt="" loading="lazy">
+      <div class="thumb-badges"><span class="tag tag-teal">Ages {{ p.ageRange }}</span></div>
+    </div>
+  </a>
+  <div class="obj-card-body">
+    <button type="button" class="save-btn" aria-pressed="false" data-save-program="{{ p.id }}" aria-label="Save program" style="position:static;margin-left:auto;order:-1;">{% icon "bookmark" %}</button>
+    <a href="/programs/{{ p.slug }}/" style="text-decoration:none;color:inherit;">
+      <h3>{{ p.title }}</h3>
+      <div class="obj-meta">
+        <span>{% icon "clock" %} {{ p.duration }}</span>
+        <span>{% icon "pin" %} {{ p.locationFormats[0] | locationLabel }}</span>
+      </div>
+      <p class="desc">{{ p.summary }}</p>
+    </a>
+  </div>
+  <div class="obj-card-foot" style="padding:0 var(--space-4) var(--space-4);">
+    <span class="price">${{ p.price }}</span>
+    <a class="btn btn-outline btn-sm" href="/programs/{{ p.slug }}/">View Program</a>
+  </div>
+</div>
+{% endmacro %}

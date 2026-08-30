@@ -131,6 +131,60 @@
     });
   });
 
+  /* ---- Learn page's Program Finder form, ported from pageLearn()'s inline
+     submit handler. Builds the same comma-joined-per-category query string
+     (age=9-12,13-17&interest=robotics) the future /programs/ page will read,
+     rather than relying on native multi-checkbox GET semantics (which would
+     produce repeated ?age=a&age=b params instead). ---- */
+  var learnFinderForm = qs("#learn-finder-form");
+  if (learnFinderForm) {
+    learnFinderForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var fd = new FormData(learnFinderForm);
+      var params = new URLSearchParams();
+      ["age", "interest", "location"].forEach(function (key) {
+        var values = fd.getAll(key);
+        if (values.length) params.set(key, values.join(","));
+      });
+      var qs2 = params.toString();
+      window.location.href = "/programs/" + (qs2 ? "?" + qs2 : "");
+    });
+  }
+
+  /* ---- saved programs (localStorage-backed, ported from site.html's
+     saved()/toggleSaved()/wireSaveButtons). Every [data-save-program] button
+     is server-rendered as "not saved" (there's no per-visitor knowledge at
+     build time) -- this corrects each one's aria-pressed/label/icon fill for
+     this specific visitor's browser as soon as the page loads, then wires
+     the click-to-toggle behavior. ---- */
+  var SAVED_PROGRAMS_KEY = "ricm_saved_programs";
+  function getSavedPrograms() {
+    try { return JSON.parse(localStorage.getItem(SAVED_PROGRAMS_KEY) || "[]"); }
+    catch (e) { return []; }
+  }
+  function toggleSavedProgram(id) {
+    try {
+      var s = getSavedPrograms();
+      if (s.indexOf(id) !== -1) { s = s.filter(function (x) { return x !== id; }); }
+      else { s.push(id); }
+      localStorage.setItem(SAVED_PROGRAMS_KEY, JSON.stringify(s));
+      return s.indexOf(id) !== -1;
+    } catch (e) { return false; }
+  }
+  function setSaveButtonState(btn, isSaved) {
+    btn.setAttribute("aria-pressed", String(isSaved));
+    btn.setAttribute("aria-label", isSaved ? "Remove from saved programs" : "Save program");
+  }
+  var initiallySaved = getSavedPrograms();
+  document.querySelectorAll("[data-save-program]").forEach(function (btn) {
+    if (initiallySaved.indexOf(btn.dataset.saveProgram) !== -1) setSaveButtonState(btn, true);
+    btn.addEventListener("click", function () {
+      var isSaved = toggleSavedProgram(btn.dataset.saveProgram);
+      setSaveButtonState(btn, isSaved);
+      announce(isSaved ? "Program saved." : "Program removed from saved list.");
+    });
+  });
+
   /* ---- contact form (About page), ported from site.html's wireContactForm ---- */
   var contactForm = qs("#contact-form");
   if (contactForm) {

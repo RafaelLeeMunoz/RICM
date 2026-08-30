@@ -106,16 +106,53 @@ improvement over the prototype's own approach, not just a port. Two derived-data
 (`upcomingEvents`, `featuredStory`) mirror what `pageHome()` used to compute client-side
 (`D.EVENTS.filter(...).sort(...)`, `D.STORIES.find(...)`) — computed once at build time instead.
 
-### What's actually migrated so far: Home, Visit, Explore, and About
+### What's actually migrated so far: Home, Visit, Explore, About, and Learn
 
 Every other route from site.html's router table (`/collection`,
-`/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`, `/learn`,
+`/collection/:slug`, `/stories`, `/stories/:slug`, `/exhibits/data-storage(/:chapter)`,
 `/programs`, `/programs/:slug`, `/create`, `/events`, `/events/archive`, `/events/:slug`,
 `/support`, `/search`) is **not built yet** — those links in the new nav/footer/Home page point
-at real future paths (`/learn/`, etc.) that will 404 until each page gets its own migration pass,
-same shape as these four. Follow the same pattern per page: read the matching `pageXxx()`
+at real future paths (`/programs/`, etc.) that will 404 until each page gets its own migration
+pass, same shape as these five. Follow the same pattern per page: read the matching `pageXxx()`
 function in `site.html`, port its markup into a new `.njk` template, add any data it needs to
 `_data/` (with full fields this time, not the trimmed set below), wire real nav routes.
+
+**Learn** (`src/learn.njk`) was migrated fifth. New content collections, all full ports:
+**`src/_data/programs.json`** (all 10 STEM programs from site.html's `PROGRAMS` array, including
+fields — `outcomes`, `whatToExpect`, `included`, `sessions`, `forParents`, `forEducators` — that
+Learn itself doesn't use but the future Program Catalog/Program Detail pages will), plus
+**`ageBands.json`**/**`interests.json`**/**`locations.json`** (the Program Finder's three filter
+option lists). One interpretive call worth flagging: each program's `outcomes[].icon` and every
+`interests[].icon` field held raw strings like `"icon-wrench"` in site.html that were never
+actually consumed by any code reachable so far — normalized to the real `icons.js` key names
+(`"wrench"`) for consistency with `categories.json`'s existing precedent, in case a future page
+render expects to feed them straight into the `icon` shortcode.
+
+New shared pieces:
+- **`locationLabel` Nunjucks filter** (`.eleventy.js`), ported from site.html's `LOCATION_LABEL`
+  helper — `{{ p.locationFormats[0] | locationLabel }}`.
+- **`programCard(p)` macro** (`macros.njk`) — ported from `programCard(p, saved)`, but always
+  rendered in the "not saved" state at build time (no per-visitor knowledge exists then); see
+  below for how the real saved state gets applied.
+- **A real localStorage-backed feature, fully ported to `main.js`**: the bookmark/"save this
+  program" button. `getSavedPrograms`/`toggleSavedProgram` mirror site.html's `saved()`/
+  `toggleSaved()` exactly (same `localStorage` key, `ricm_saved_programs`); on page load, every
+  `[data-save-program]` button gets its `aria-pressed`/label corrected against that visitor's
+  actual saved list (since the server-rendered default is always "unsaved"), then click-to-toggle
+  is wired the same way `wireSaveButtons` did. This is a genuinely progressive-enhancement
+  pattern worth remembering for any other localStorage-backed feature ported later: render a
+  sensible default at build time, correct it for the real visitor once JS runs.
+- **The Program Finder form's submit handler**, ported from `pageLearn()`'s inline handler —
+  deliberately NOT relying on native multi-checkbox GET semantics (which would produce repeated
+  `?age=a&age=b` params); instead builds the same single comma-joined-value-per-category query
+  string (`?age=9-12,13-17&interest=robotics`) the future `/programs/` page will expect, matching
+  `D.PROGRAMS`' own filtering assumptions exactly.
+- **`href="#learn-finder"` needed zero JS at all** — site.html intercepted this click
+  (`data-scroll-link`) specifically to fight its own hash-based router, which would otherwise
+  have misread `#learn-finder` as a route change. With real static pages there's no router to
+  fight, and `html{ scroll-behavior: smooth }` (already in `style.css`, plus the existing
+  `prefers-reduced-motion` override) makes a plain anchor link smooth-scroll correctly on its
+  own — a real simplification the migration gets for free, not something that needed porting.
 
 **About** (`src/about.njk`) was migrated fourth. New content collections:
 **`src/_data/organizations.json`** (8 manufacturer/organization entries, full port) and
@@ -279,3 +316,16 @@ filling in valid data and resubmitting correctly showed the success message, cle
 NOT change `location.href` (no navigation); and the screen-reader-only `#a11y-announcer` region
 was confirmed to actually receive the expected announcement text after that click — the full
 accessibility pipeline verified working, not just assumed from reading the code.
+
+**Learn page verified with real interaction tests too**: real build (zero errors), output
+inspected directly (correct counts — 4 age bands, 6 interests, 4 locations, 4 audience cards,
+exactly the first 3 programs in array order as the "Featured programs" grid). Live in the
+browser: screenshot confirmed the hero/breadcrumb/active nav; the save-program button was
+clicked twice and confirmed to genuinely toggle `aria-pressed`/`aria-label` and the real
+`localStorage` entry both ways (saved then unsaved); the Program Finder form was actually
+submitted via `form.requestSubmit()` (not just a parallel recomputation of the same logic) with
+two age bands and two interests checked, and `location.href` was confirmed to have really
+navigated to `/programs/?age=9-12,13-17&interest=robotics,coding` — the exact comma-joined query
+format the future Program Catalog page will need to read. `get_page_text` confirmed every
+section's real content, including the `locationLabel` filter correctly resolving `"at-ricm"` to
+`"At RICM"` on every featured program card.

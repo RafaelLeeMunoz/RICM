@@ -1,0 +1,173 @@
+[
+  {
+    "id": "robotics-foundations", "slug": "robotics-foundations", "title": "Robotics Foundations", "ageRange": "9–12", "ages": [9, 10, 11, 12], "interests": ["robotics"], "locationFormats": ["at-ricm"], "duration": "6 weeks", "durationWeeks": 6, "price": 295, "season": "fall", "day": "Saturday",
+    "imageSeed": "prog-robotics", "summary": "Build, code, and test real robots while learning core engineering and problem-solving skills.",
+    "whatTheyDo": "Students build and program real robots using industry-standard kits. Through exciting projects and challenges, students learn engineering concepts, coding fundamentals, and teamwork — no prior experience required.",
+    "outcomes": [
+      { "title": "Build & Engineering", "desc": "Design and construct robots using real-world engineering principles.", "icon": "wrench" },
+      { "title": "Programming Logic", "desc": "Learn block-based and text coding to control robot behaviors.", "icon": "code" },
+      { "title": "Problem Solving", "desc": "Tackle open-ended challenges that build critical thinking.", "icon": "bulb" },
+      { "title": "Teamwork", "desc": "Collaborate, communicate, and share ideas to reach a common goal.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Equipment & materials", "Instruction from experienced educators", "Safety equipment", "Take-home resources", "Certificate of completion", "Digital recap for families", "Team challenge day", "Family information session"],
+    "sessions": [
+      { "id": "rf-s1", "dateRange": "Sep 12 – Oct 17", "day": "Sat", "time": "10:00–11:30 AM", "status": "open", "spots": 6, "price": 295 },
+      { "id": "rf-s2", "dateRange": "Nov 7 – Dec 12", "day": "Sat", "time": "10:00–11:30 AM", "status": "waitlist", "spots": 0, "price": 295 }
+    ],
+    "registrationStatus": "open",
+    "forParents": "Robotics Foundations is designed for beginners — no prior coding or building experience is needed. Small class sizes (max 12) mean every student gets hands-on time with the equipment, and all materials are provided.",
+    "forEducators": "This program aligns with NGSS engineering-design standards and can be brought to your school as a group booking; see Bring to My School for group pricing and logistics.",
+    "isSample": true
+  },
+  {
+    "id": "lego-robotics-engineering", "slug": "lego-robotics-engineering", "title": "LEGO® Robotics Engineering", "ageRange": "7–10", "ages": [7, 8, 9, 10], "interests": ["robotics", "engineering"], "locationFormats": ["at-ricm"], "duration": "8 weeks", "durationWeeks": 8, "price": 275, "season": "fall", "day": "Saturday",
+    "imageSeed": "prog-lego", "summary": "Design and build LEGO robots and solve real-world engineering challenges.",
+    "whatTheyDo": "Using LEGO Education robotics kits, students design, build, and test robots that solve a series of themed engineering challenges, building confidence with hands-on iteration.",
+    "outcomes": [
+      { "title": "Mechanical Design", "desc": "Explore gears, levers, and simple machines.", "icon": "wrench" },
+      { "title": "Sequencing Logic", "desc": "Program step-by-step robot behaviors.", "icon": "code" },
+      { "title": "Iteration", "desc": "Test, fail safely, and improve a design.", "icon": "bulb" },
+      { "title": "Collaboration", "desc": "Work in pairs toward a shared build goal.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["LEGO Education kits (provided)", "Instruction", "Safety equipment", "Take-home design journal", "Certificate of completion"],
+    "sessions": [{ "id": "lre-s1", "dateRange": "Sep 13 – Nov 1", "day": "Sun", "time": "1:00–2:30 PM", "status": "limited", "spots": 3, "price": 275 }],
+    "registrationStatus": "limited",
+    "forParents": "A gentle, well-supported entry point to robotics for younger builders; every session is led by two instructors.",
+    "forEducators": "Group bookings available for grades 2–4; equipment provided on-site or can travel to your classroom.",
+    "isSample": true
+  },
+  {
+    "id": "arduino-robotics-workshop", "slug": "arduino-robotics-workshop", "title": "Arduino Robotics Workshop", "ageRange": "11–15", "ages": [11, 12, 13, 14, 15], "interests": ["robotics", "electronics"], "locationFormats": ["at-ricm"], "duration": "4 weeks", "durationWeeks": 4, "price": 295, "season": "fall", "day": "Saturday",
+    "imageSeed": "prog-arduino", "summary": "Code robots using Arduino and advanced sensors.",
+    "whatTheyDo": "Students wire, program, and debug Arduino-based robots equipped with sensors, moving from guided exercises to an independent final project.",
+    "outcomes": [
+      { "title": "Circuits", "desc": "Wire sensors, motors, and microcontrollers.", "icon": "chip" },
+      { "title": "C++ Basics", "desc": "Write and debug real Arduino code.", "icon": "code" },
+      { "title": "Systems Thinking", "desc": "Combine inputs and outputs into behavior.", "icon": "bulb" },
+      { "title": "Presentation", "desc": "Demo a finished project to the group.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Arduino kits (provided, loaner)", "Instruction", "Take-home code notebook", "Certificate of completion"],
+    "sessions": [{ "id": "arw-s1", "dateRange": "Oct 4 – Oct 25", "day": "Sat", "time": "1:00–3:00 PM", "status": "open", "spots": 9, "price": 295 }],
+    "registrationStatus": "open",
+    "forParents": "Recommended for students with some prior coding exposure, though motivated beginners do well with instructor support.",
+    "forEducators": "A strong fit for middle-school STEM electives; can be adapted to a single-day workshop format for field trips.",
+    "isSample": true
+  },
+  {
+    "id": "python-programming-for-kids", "slug": "python-programming-for-kids", "title": "Python Programming for Kids", "ageRange": "9–13", "ages": [9, 10, 11, 12, 13], "interests": ["coding"], "locationFormats": ["at-ricm", "online"], "duration": "6 weeks", "durationWeeks": 6, "price": 110, "season": "fall", "day": "Weekday",
+    "imageSeed": "prog-python", "summary": "Learn Python by making games, animations, and interactive projects in a fun, supportive environment.",
+    "whatTheyDo": "Starting from the very first line of code, students build up to small text games and interactive animations using Python, with plenty of live troubleshooting support.",
+    "outcomes": [
+      { "title": "Syntax & Logic", "desc": "Variables, loops, and conditionals.", "icon": "code" },
+      { "title": "Debugging", "desc": "Read errors and fix them methodically.", "icon": "bulb" },
+      { "title": "Creative Coding", "desc": "Turn logic into games and animation.", "icon": "wrench" },
+      { "title": "Confidence", "desc": "Present a finished program to peers.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Laptops provided on-site (or bring your own)", "Instruction", "Take-home project files", "Certificate of completion"],
+    "sessions": [
+      { "id": "ppk-s1", "dateRange": "Sep 9 – Oct 14", "day": "Tue", "time": "4:30–5:30 PM", "status": "open", "spots": 11, "price": 110 },
+      { "id": "ppk-s2", "dateRange": "Oct 21 – Nov 25", "day": "Tue", "time": "4:30–5:30 PM", "status": "open", "spots": 12, "price": 110 }
+    ],
+    "registrationStatus": "open",
+    "forParents": "No experience needed. Sessions run online or at RICM — select the format that works best when registering.",
+    "forEducators": "Available as an after-school enrichment block; ask about bundling with a classroom visit.",
+    "isSample": true
+  },
+  {
+    "id": "game-design-with-minecraft", "slug": "game-design-with-minecraft", "title": "Game Design with Minecraft", "ageRange": "7–12", "ages": [7, 8, 9, 10, 11, 12], "interests": ["game-design"], "locationFormats": ["at-ricm"], "duration": "5 weeks", "durationWeeks": 5, "price": 100, "season": "fall", "day": "Weekday",
+    "imageSeed": "prog-minecraft", "summary": "Design your own Minecraft worlds and games while learning logic, storytelling, and level design.",
+    "whatTheyDo": "Students use Minecraft: Education Edition to build playable levels, learning core game-design concepts like pacing, challenge, and player feedback along the way.",
+    "outcomes": [
+      { "title": "Level Design", "desc": "Pace challenge and exploration.", "icon": "wrench" },
+      { "title": "Redstone Logic", "desc": "Build simple in-game logic circuits.", "icon": "code" },
+      { "title": "Storytelling", "desc": "Frame a world with narrative context.", "icon": "bulb" },
+      { "title": "Playtesting", "desc": "Give and receive constructive feedback.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Minecraft: Education Edition licenses (provided)", "Instruction", "Certificate of completion"],
+    "sessions": [{ "id": "gdm-s1", "dateRange": "Sep 10 – Oct 8", "day": "Wed", "time": "4:00–5:00 PM", "status": "full", "spots": 0, "price": 100 }],
+    "registrationStatus": "full",
+    "forParents": "A supervised, education-edition environment — not the public multiplayer version of the game.",
+    "forEducators": "Popular as a library or after-school enrichment offering; can run as a single extended workshop.",
+    "isSample": true
+  },
+  {
+    "id": "digital-art-and-animation", "slug": "digital-art-and-animation", "title": "Digital Art & Animation", "ageRange": "9–14", "ages": [9, 10, 11, 12, 13, 14], "interests": ["digital-art"], "locationFormats": ["at-ricm"], "duration": "6 weeks", "durationWeeks": 6, "price": 110, "season": "fall", "day": "Weekday",
+    "imageSeed": "prog-digitalart", "summary": "Create digital art and animations using industry-standard tools. No experience needed!",
+    "whatTheyDo": "Students learn the fundamentals of digital illustration and frame-by-frame animation, finishing with a short animated piece of their own design.",
+    "outcomes": [
+      { "title": "Digital Drawing", "desc": "Layers, brushes, and composition.", "icon": "wrench" },
+      { "title": "Animation Basics", "desc": "Timing, easing, and keyframes.", "icon": "code" },
+      { "title": "Visual Storytelling", "desc": "Build a short narrative arc.", "icon": "bulb" },
+      { "title": "Critique", "desc": "Share work and give feedback.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Drawing tablets (provided, loaner)", "Instruction", "Take-home project file", "Certificate of completion"],
+    "sessions": [{ "id": "daa-s1", "dateRange": "Sep 11 – Oct 16", "day": "Thu", "time": "4:00–5:30 PM", "status": "open", "spots": 8, "price": 110 }],
+    "registrationStatus": "open", "forParents": "A relaxed, creative-first environment; no drawing experience required.", "forEducators": "Pairs well with a Create hub visit for students exploring Tales from the Hard Drive projects.", "isSample": true
+  },
+  {
+    "id": "electronics-and-circuits", "slug": "electronics-and-circuits", "title": "Electronics & Circuits", "ageRange": "11–15", "ages": [11, 12, 13, 14, 15], "interests": ["electronics"], "locationFormats": ["at-ricm"], "duration": "6 weeks", "durationWeeks": 6, "price": 120, "season": "fall", "day": "Weekday",
+    "imageSeed": "prog-electronics", "summary": "Explore the basics of electronics by building circuits and interactive projects.",
+    "whatTheyDo": "From a first blinking LED to a simple alarm circuit, students build up practical, hands-on electronics skills using a breadboard and real components.",
+    "outcomes": [
+      { "title": "Circuit Reading", "desc": "Understand schematics and breadboards.", "icon": "chip" },
+      { "title": "Component Knowledge", "desc": "Resistors, LEDs, sensors, and switches.", "icon": "wrench" },
+      { "title": "Troubleshooting", "desc": "Diagnose a circuit that isn't working.", "icon": "bulb" },
+      { "title": "Documentation", "desc": "Sketch and label a finished circuit.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Component kits (provided, loaner)", "Instruction", "Safety equipment", "Certificate of completion"],
+    "sessions": [{ "id": "eac-s1", "dateRange": "Sep 15 – Oct 20", "day": "Mon", "time": "4:00–5:30 PM", "status": "open", "spots": 7, "price": 120 }],
+    "registrationStatus": "open", "forParents": "All components are low-voltage and battery-powered; safety is covered in the first session.", "forEducators": "A strong companion to a physical-science curriculum unit on circuits.", "isSample": true
+  },
+  {
+    "id": "ar-vr-explorers", "slug": "ar-vr-explorers", "title": "AR & VR Explorers", "ageRange": "10–15", "ages": [10, 11, 12, 13, 14, 15], "interests": ["digital-art", "engineering"], "locationFormats": ["at-ricm"], "duration": "4 sessions", "durationWeeks": 4, "price": 110, "season": "fall", "day": "Weekend",
+    "imageSeed": "prog-arvr", "summary": "Dive into augmented and virtual reality and build your own immersive experiences.",
+    "whatTheyDo": "Students try both AR and VR hardware, then use beginner-friendly creation tools to build a simple interactive scene of their own.",
+    "outcomes": [
+      { "title": "Spatial Design", "desc": "Think in 3D space, not just 2D screens.", "icon": "wrench" },
+      { "title": "Interaction Design", "desc": "Trigger events from user actions.", "icon": "code" },
+      { "title": "Prototyping", "desc": "Build and test a rough scene quickly.", "icon": "bulb" },
+      { "title": "Showcase", "desc": "Demo a finished experience.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["VR/AR headsets (provided, on-site only)", "Instruction", "Certificate of completion"],
+    "sessions": [{ "id": "arv-s1", "dateRange": "Oct 3 – Oct 24", "day": "Fri", "time": "4:00–5:00 PM", "status": "limited", "spots": 2, "price": 110 }],
+    "registrationStatus": "limited", "forParents": "Headsets are sanitized between uses; sessions include regular breaks.", "forEducators": "On-site only due to equipment; not currently available as a school visit.", "isSample": true
+  },
+  {
+    "id": "typing-tech-skills-bootcamp", "slug": "typing-and-tech-skills-bootcamp", "title": "Typing & Tech Skills Bootcamp", "ageRange": "7–11", "ages": [7, 8, 9, 10, 11], "interests": ["coding"], "locationFormats": ["at-ricm", "at-my-school"], "duration": "3 sessions", "durationWeeks": 3, "price": 75, "season": "fall", "day": "Weekday",
+    "imageSeed": "prog-typing", "summary": "Boost confidence with keyboarding, digital citizenship, and essential tech skills.",
+    "whatTheyDo": "Short, focused sessions build comfort with a keyboard, file basics, and safe, responsible internet use through games and guided practice.",
+    "outcomes": [
+      { "title": "Keyboarding", "desc": "Build speed and accuracy over time.", "icon": "wrench" },
+      { "title": "File Basics", "desc": "Save, find, and organize digital work.", "icon": "code" },
+      { "title": "Digital Citizenship", "desc": "Practice safe, kind online behavior.", "icon": "bulb" },
+      { "title": "Confidence", "desc": "Feel comfortable at a keyboard.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["Instruction", "Practice worksheets", "Certificate of completion"],
+    "sessions": [{ "id": "ttb-s1", "dateRange": "Sep 8 – Sep 22", "day": "Mon", "time": "3:30–4:15 PM", "status": "open", "spots": 14, "price": 75 }],
+    "registrationStatus": "open", "forParents": "A great low-pressure starting point for a first-time program participant.", "forEducators": "Also offered as an at-school visit for whole classrooms — see Bring to My School.", "isSample": true
+  },
+  {
+    "id": "3d-design-printing-workshop", "slug": "3d-design-and-printing-workshop", "title": "3D Design & Printing Workshop", "ageRange": "11–16", "ages": [11, 12, 13, 14, 15, 16], "interests": ["engineering", "digital-art"], "locationFormats": ["at-ricm"], "duration": "6 weeks", "durationWeeks": 6, "price": 130, "season": "fall", "day": "Weekend",
+    "imageSeed": "prog-3dprint", "summary": "Design in 3D and bring your ideas to life with professional 3D printers.",
+    "whatTheyDo": "Students learn parametric 3D modeling and take a project from digital design through slicing and printing on RICM's 3D printers.",
+    "outcomes": [
+      { "title": "3D Modeling", "desc": "Build shapes in real CAD software.", "icon": "wrench" },
+      { "title": "Design for Printing", "desc": "Understand supports, tolerances, infill.", "icon": "code" },
+      { "title": "Iteration", "desc": "Revise a design after a test print.", "icon": "bulb" },
+      { "title": "Presentation", "desc": "Share a finished printed object.", "icon": "people" }
+    ],
+    "whatToExpect": ["Discover", "Build", "Program", "Test", "Improve", "Share"],
+    "included": ["3D printer time & filament (provided)", "Instruction", "Certificate of completion"],
+    "sessions": [{ "id": "3dp-s1", "dateRange": "Sep 14 – Oct 19", "day": "Sun", "time": "11:00 AM–12:30 PM", "status": "closed", "spots": 0, "price": 130 }],
+    "registrationStatus": "closed", "forParents": "Registration for this session has closed; join the waitlist for the next session announcement.", "forEducators": "On-site only due to equipment; group bookings available by request.", "isSample": true
+  }
+]

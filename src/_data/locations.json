@@ -1,0 +1,6 @@
+[
+  { "id": "at-ricm", "label": "At RICM" },
+  { "id": "at-my-school", "label": "At My School" },
+  { "id": "community", "label": "Community" },
+  { "id": "online", "label": "Online / Virtual" }
+]

@@ -1,0 +1,8 @@
+[
+  { "id": "robotics", "label": "Robotics", "icon": "robot" },
+  { "id": "coding", "label": "Coding", "icon": "code" },
+  { "id": "engineering", "label": "Engineering", "icon": "wrench" },
+  { "id": "game-design", "label": "Game Design", "icon": "gaming" },
+  { "id": "digital-art", "label": "Digital Art", "icon": "brush" },
+  { "id": "electronics", "label": "Electronics", "icon": "chip" }
+]

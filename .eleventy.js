@@ -2,6 +2,8 @@ const ICONS = require("./src/_data/icons.js");
 const EVENTS = require("./src/_data/events.json");
 const STORIES = require("./src/_data/stories.json");
 const ARTIFACTS = require("./src/_data/artifacts.json");
+const PROGRAMS = require("./src/_data/programs.json");
+const LOCATIONS = require("./src/_data/locations.json");
 
 /* ==========================================================================
    Placeholder photography generator — ported verbatim from site.html's
@@ -92,6 +94,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("otherFeaturedArtifacts", () =>
     ARTIFACTS.filter((a) => a.id !== "apple-iic").slice(0, 3)
   );
+  // Mirrors pageLearn()'s `D.PROGRAMS.slice(0,3)`.
+  eleventyConfig.addGlobalData("featuredPrograms", () => PROGRAMS.slice(0, 3));
 
   eleventyConfig.addShortcode("placeholderImage", placeholderImage);
   eleventyConfig.addShortcode("icon", function (name, cls) {
@@ -99,6 +103,11 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addFilter("monthAbbr", monthAbbr);
   eleventyConfig.addFilter("dayNum", dayNum);
+  // Ported from site.html's LOCATION_LABEL(id) helper.
+  eleventyConfig.addFilter("locationLabel", function (id) {
+    const l = LOCATIONS.find((x) => x.id === id);
+    return l ? l.label : id;
+  });
 
   return {
     dir: {
